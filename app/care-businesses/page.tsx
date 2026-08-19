@@ -97,7 +97,7 @@ export default async function CareBusinessesPage() {
       {/* Market context — real figures from PRD §7 */}
       <StatBand
         stats={stats}
-        caption="Adult social care in England. Figures from PRD §7 — citations to be added before launch."
+        caption="Adult social care in England. Source citations to be confirmed before launch."
       />
 
       {/* Segments served */}

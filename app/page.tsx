@@ -55,7 +55,7 @@ export default async function HomePage() {
       <AboutIntro />
       <StatBand
         stats={stats}
-        caption="Adult social care in England. Figures from PRD §7 — citations to be added before launch."
+        caption="Adult social care in England. Source citations to be confirmed before launch."
       />
       <ServicesSplit />
       <TwoArms arms={arms} />

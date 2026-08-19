@@ -100,8 +100,8 @@ export default async function AboutPage() {
           ))}
         </div>
         <p className="measure mx-auto mt-8 text-center text-small text-ink-500">
-          Adult social care in England. Figures from the Rakuxon internal
-          strategy deck (PRD §7) — citations to be added before launch.
+          Adult social care in England. Source citations to be confirmed before
+          launch.
         </p>
       </Section>
 

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 /* PRD §5.4 — productised offer. Contents come from the data layer and are
-   grouped exactly as the strategy deck defines them. */
+   grouped exactly as PRD §5.4 defines them. */
 const GROUP_ICONS = [ScrollText, Users, ClipboardList, Sparkles];
 
 export default async function LaunchKitPage() {
