@@ -52,12 +52,13 @@ export function WhyChooseUs() {
               Why choose us
             </span>
             <h2 className="text-h2">
-              Trusted by families
-              <br className="hidden sm:block" /> and by councils
+              The only consultancy
+              <br className="hidden sm:block" /> that runs its own service
             </h2>
             <p className="measure text-ink-500">
-              We are judged by the same standards as the providers we advise,
-              which keeps both halves of the business honest.
+              Care consultancies sell credibility they do not hold. We hold it,
+              because Arm 1 delivers regulated care every day and Arm 2 sells
+              only what Arm 1 actually uses.
             </p>
           </div>
         </div>
