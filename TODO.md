@@ -64,6 +64,48 @@ self-contained and `next/image` can optimise them. Source ids:
 
 ---
 
+## PRD v2.0 — two-arm model (this pass)
+
+The site now follows PRD v2.0: **Arm 1 Rakuxon Care** (CQC-registered
+personal + domiciliary care) and **Arm 2 Rakuxon Care Agency** (enablement
+for other providers). Changes made, and what is still owed:
+
+* **Real market figures are live.** The stat bands now use PRD §7 data
+  (£77.8bn, 15,232 locations, 1.71m jobs, ~10% vacancy rate, 683,000
+  long-term clients, 2.02m council requests, +11% growth). **Citations are
+  not attached.** Each band carries a source line naming the internal
+  strategy deck; before launch these need proper public citations (Skills
+  for Care / CQC / ADASS as applicable) or they should not be published.
+* **Invented company metrics were removed.** The hero previously claimed
+  "more than 4,000 carers matched" and "5k+ families supported". Arm 1 is
+  pre-registration per PRD §10 decision 2, so those were false. They are
+  replaced by real market figures and an honest "CQC in progress" tag.
+* **`/start-a-care-business` is gone**, replaced by `/launch-kit` with a
+  permanent redirect in `next.config.ts`.
+* **New pages:** `/launch-kit` (PRD §5.4, all four content groups) and
+  `/staffing` (PRD §5.5, including the EAS regulatory note).
+* **Nav follows PRD §3.1** — Services mega-menu with two arm columns, plus
+  Find Care, Launch Kit, About, FAQ, ghost Log in and filled Get in touch.
+  **Held back until their routes exist:** `Resources ▾` (Blog, Case
+  Studies, Guides) and `Careers`. Shipping them now would mean 404s. Add
+  them in Phases 4–5.
+* **Footer follows PRD §3.2** — four columns keyed to the two arms, company
+  and get-started, plus the EAS note in the trust bar.
+* **Launch Kit pricing is not shown.** PRD §10 decision 3 is unresolved, so
+  the page says "one fixed price, quoted on enquiry" and names the open
+  decision.
+* **Arm 1 scope is stated explicitly** on Find Care: personal and
+  domiciliary care only, no care home / residential / nursing.
+
+### Still conflicting with the reference build
+
+* `02_design-system.md` §4.3 still specifies the **dual-lane split hero**.
+  The reference has a single centred hero, so lane selection now lives in
+  the "Two arms" section directly beneath it. **One of the two documents
+  should be updated.**
+* Service detail pages (`/services/{slug}`, PRD §4.2) do not exist yet, so
+  Arm 2 service cards link to the hub's services anchor.
+
 ## Reference-structure rebuild
 
 The home page now follows the Medicia reference section for section (navbar,

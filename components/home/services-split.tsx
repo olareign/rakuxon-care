@@ -26,10 +26,13 @@ export function ServicesSplit() {
               <span className="inline-flex items-center rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
                 Services
               </span>
-              <h2 className="text-h2">Complete care and business support</h2>
+              <h2 className="text-h2">
+                Care delivered, and care businesses built
+              </h2>
               <p className="measure text-ink-500">
-                Care delivered in the home, and the registration, tender and
-                staffing work that keeps a care service standing.
+                Arm 1 provides personal and domiciliary care at home. Arm 2
+                gives other providers the registration, tenders, systems and
+                staffing to do the same.
               </p>
               <Link
                 href="/contact"
@@ -43,14 +46,14 @@ export function ServicesSplit() {
               {[
                 {
                   icon: HeartHandshake,
-                  title: "Home care",
-                  body: "Visits, live-in care and dementia support, arranged around the person.",
+                  title: "Rakuxon Care",
+                  body: "Personal and domiciliary care at home, for families, councils and ICBs.",
                   href: "/find-care",
                 },
                 {
                   icon: Building2,
-                  title: "Care businesses",
-                  body: "CQC registration, tenders, branding and recruitment for providers.",
+                  title: "Rakuxon Care Agency",
+                  body: "Registration, tenders, policies, digital, consulting and staffing.",
                   href: "/care-businesses",
                 },
               ].map(({ icon: Icon, title, body, href }) => (

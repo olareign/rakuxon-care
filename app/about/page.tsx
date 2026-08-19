@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  ClipboardCheck,
-  FileSignature,
-  HeartHandshake,
-  Users,
-} from "lucide-react";
+import { Building2, HeartHandshake } from "lucide-react";
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -14,7 +9,7 @@ import { IconCard, StatCard } from "@/components/marketing/cards";
 import { PHOTOS } from "@/lib/images";
 import { Section, SectionIntro } from "@/components/marketing/section";
 import { TeamGrid } from "@/components/marketing/team-grid";
-import { getArms, getSiteSettings, getStats, getTeam } from "@/lib/cms";
+import { getArms, getMarketStats, getSiteSettings, getTeam } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "About",
@@ -22,12 +17,12 @@ export const metadata: Metadata = {
     "Rakuxon Care delivers CQC-registered home care and helps care businesses register, win contracts and recruit. One brand, two audiences, four arms.",
 };
 
-const ARM_ICONS = [HeartHandshake, ClipboardCheck, FileSignature, Users];
+const ARM_ICONS = [HeartHandshake, Building2];
 
 export default async function AboutPage() {
   const [arms, stats, team, settings] = await Promise.all([
     getArms(),
-    getStats(),
+    getMarketStats("compact"),
     getTeam(),
     getSiteSettings(),
   ]);
@@ -60,12 +55,12 @@ export default async function AboutPage() {
             className="shadow-card"
           />
           <div className="flex flex-col gap-5">
-            <h2 className="text-h2">Why both sides</h2>
+            <h2 className="text-h2">Why both arms</h2>
             <p className="text-ink-700">
               Advising care businesses without running one produces advice that
-              reads well and fails inspection. Running a service without seeing
-              the wider sector produces a business that survives but never
-              grows. Doing both is the point.
+              reads well and fails inspection. Every other consultancy in this
+              market sells credibility it does not hold. Rakuxon holds it,
+              because Arm 1 is a regulated service in its own right.
             </p>
             <p className="text-ink-700">
               Placeholder narrative. Final copy, founding date and the real
@@ -76,21 +71,21 @@ export default async function AboutPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section id="model">
         <SectionIntro
-          eyebrow="Structure"
-          title="Four arms"
-          subtitle="One arm serves families and councils directly. Three serve the businesses that do the same."
+          eyebrow="Our model"
+          title="Two arms, one authority"
+          subtitle="One arm delivers regulated care. The other helps care businesses do the same. The first is what makes the second credible."
         />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {arms.map((arm, i) => (
             <Link key={arm.slug} href={arm.href} className="group">
               <IconCard
                 icon={ARM_ICONS[i % ARM_ICONS.length]}
-                title={arm.name}
+                title={`Arm ${arm.number} — ${arm.name}`}
                 body={arm.summary}
                 lane={arm.lane}
-                className="transition-colors group-hover:bg-paper-0"
+                className="h-full transition-colors group-hover:bg-paper-0"
               />
             </Link>
           ))}
@@ -105,8 +100,8 @@ export default async function AboutPage() {
           ))}
         </div>
         <p className="measure mx-auto mt-8 text-center text-small text-ink-500">
-          Placeholder figures. Real numbers are owed by PRD §10 and must be
-          verifiable before launch.
+          Adult social care in England. Figures from the Rakuxon internal
+          strategy deck (PRD §7) — citations to be added before launch.
         </p>
       </Section>
 

@@ -8,48 +8,57 @@ import { Specialists } from "@/components/home/specialists";
 import { StatBand } from "@/components/home/stat-band";
 import { Testimonials } from "@/components/home/testimonials";
 import { TrustStrip } from "@/components/home/trust-strip";
+import { TwoArms } from "@/components/home/two-arms";
 import { WhyChooseUs } from "@/components/home/why-choose-us";
 import { WorkingProcess } from "@/components/home/working-process";
 import {
+  getArms,
   getFaqs,
+  getMarketStats,
   getProcess,
-  getStats,
+  getSiteSettings,
   getTeam,
   getTestimonials,
 } from "@/lib/cms";
 
 /**
- * Home page, following the Medicia reference structure section for section:
+ * Home — reference structure (14 sections), PRD v2.0 content.
  *
- *  1 navbar (root layout)   8 working process
- *  2 hero                   9 why choose us
- *  3 trust strip           10 CTA band
- *  4 about intro           11 specialists
- *  5 stat band             12 testimonials
- *  6 services split        13 FAQ
- *  7 personalised          14 footer (root layout)
+ *  1 navbar (layout)   8 working process
+ *  2 hero              9 why choose us (authority moat)
+ *  3 trust strip      10 CTA band
+ *  4 about intro      11 specialists
+ *  5 stat band        12 testimonials
+ *  6 services split   13 FAQ
+ *  7 two arms         14 footer (layout)
  *
- * Colour and copy are Rakuxon's; everything else follows the reference.
- * The earlier dual-lane split hero is replaced by the reference's centred
- * hero — both audiences are now carried through the services section and
- * the mobile drawer instead. Noted in TODO.md.
+ * Section 7 carries the dual-lane entry that PRD §5.1 requires: the
+ * reference hero is a single centred block, so lane selection sits directly
+ * beneath it rather than inside it.
  */
 export default async function HomePage() {
-  const [stats, careProcess, testimonials, team, faqs] = await Promise.all([
-    getStats(),
-    getProcess("b2c"),
-    getTestimonials(),
-    getTeam(),
-    getFaqs(),
-  ]);
+  const [arms, stats, careProcess, testimonials, team, faqs, settings] =
+    await Promise.all([
+      getArms(),
+      getMarketStats("compact"),
+      getProcess("b2c"),
+      getTestimonials(),
+      getTeam(),
+      getFaqs(),
+      getSiteSettings(),
+    ]);
 
   return (
     <>
-      <Hero />
+      <Hero cqc={settings.cqc} />
       <TrustStrip />
       <AboutIntro />
-      <StatBand stats={stats} />
+      <StatBand
+        stats={stats}
+        caption="Adult social care in England. Figures from PRD §7 — citations to be added before launch."
+      />
       <ServicesSplit />
+      <TwoArms arms={arms} />
       <Personalized />
       <WorkingProcess steps={careProcess} />
       <WhyChooseUs />

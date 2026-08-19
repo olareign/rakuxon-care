@@ -1,7 +1,9 @@
 import type {
   Arm,
   Faq,
+  LaunchKitGroup,
   ProcessStep,
+  Segment,
   Service,
   SiteSettings,
   Stat,
@@ -10,176 +12,116 @@ import type {
 } from "./types";
 
 /* ===========================================================================
-   PLACEHOLDER CONTENT — NOT APPROVED COPY
-   ---------------------------------------------------------------------------
-   Every string below is scaffolding written to give Phase 2 real structure
-   to render. It is replaced wholesale when PRD §3 and §5 are written, and
-   again by the CMS in Phase 4. Nothing here is a claim of fact:
-   registration numbers, statistics, regions and testimonials are invented
-   and must not go live.
+   Content aligned to PRD v2.0 — two arms, one authority.
 
-   ASSUMPTION — the "four arms" (PRD §3 is a TODO).
-   The docs reference "four arms" sitewide, "three arms" on the B2B hub, and
-   call careers the "Arm 4 surface". The only numbering consistent with all
-   three is:
-     1. Find Care          (B2C care delivery)
-     2. Registration       (B2B — CQC registration and compliance)
-     3. Growth             (B2B — tenders, bids, branding)
-     4. Staffing           (B2B — recruitment; careers is its surface)
-   Branding is treated as a service under Growth rather than its own arm,
-   because a fourth B2B arm would make five in total. Change ARMS below if
-   the PRD lands differently.
+   The market figures in MARKET_STATS are REAL, taken from PRD §7 ("use
+   these, not placeholders"). Everything else — testimonials, team, company
+   registration numbers, contact details — remains placeholder and is marked
+   as such in the UI. See TODO.md.
    =========================================================================== */
 
+/** PRD §1.3. Arm 1 delivers care; Arm 2 enables other providers. */
 export const ARMS: Arm[] = [
   {
-    slug: "find-care",
+    slug: "care",
     number: 1,
-    name: "Find care",
+    name: "Rakuxon Care",
+    laneLabel: "Find care",
     lane: "b2c",
+    audience: "Families, councils and ICBs",
     summary:
-      "CQC-registered care delivered at home, arranged for families and commissioned by councils.",
+      "A CQC-registered provider of personal care and domiciliary care at home. Private-pay clients, and packages commissioned by councils, ICBs and NHS Continuing Healthcare.",
     href: "/find-care",
-    services: ["home-care", "live-in-care", "dementia-care", "respite-care"],
+    services: ["home-care"],
   },
   {
-    slug: "registration",
+    slug: "agency",
     number: 2,
-    name: "Registration and compliance",
+    name: "Rakuxon Care Agency",
+    laneLabel: "For care businesses",
     lane: "b2b",
+    audience: "Other care providers",
     summary:
-      "From company formation to a registered manager in post and your CQC application accepted.",
+      "Enablement for care businesses: CQC registration, tenders and frameworks, policies, digital and branding, consulting, and Rakuxon Staffing.",
     href: "/care-businesses",
-    services: ["cqc-registration", "policies-and-compliance"],
-  },
-  {
-    slug: "growth",
-    number: 3,
-    name: "Tenders and growth",
-    lane: "b2b",
-    summary:
-      "Win local-authority contracts and build a brand families recognise and trust.",
-    href: "/care-businesses",
-    services: ["tender-writing", "branding-and-marketing"],
-  },
-  {
-    slug: "staffing",
-    number: 4,
-    name: "Staffing and recruitment",
-    lane: "b2b",
-    summary:
-      "Recruit, vet and retain carers who pass inspection and stay past their first year.",
-    href: "/care-businesses",
-    services: ["staffing-and-recruitment"],
+    services: [
+      "cqc-registration",
+      "tender-writing",
+      "policies-procedures",
+      "digital-branding",
+      "consulting",
+      "staffing",
+    ],
   },
 ];
 
+/* PRD §4.2 slugs. Arm 1 has a single `home-care` service covering personal
+   and domiciliary care; Arm 2 has six service lines. */
 export const SERVICES: Service[] = [
   {
     slug: "home-care",
-    title: "Home care visits",
+    title: "Home care services",
     lane: "b2c",
-    arm: "find-care",
+    arm: "care",
     summary:
-      "Planned visits for personal care, medication and everyday support, from 30 minutes upwards.",
+      "Personal care and domiciliary care delivered in the person's own home, from scheduled visits to live-in support.",
     features: [
-      "Personal care and medication support",
-      "Meal preparation and light housekeeping",
-      "Consistent carers, not a rota of strangers",
-      "Visit notes families can see",
+      "Washing, dressing, continence and mobility support",
+      "Medication support and meal preparation",
+      "Scheduled visits, live-in, respite and companionship",
+      "Complex and dementia-informed care",
     ],
-  },
-  {
-    slug: "live-in-care",
-    title: "Live-in care",
-    lane: "b2c",
-    arm: "find-care",
-    summary:
-      "A carer living in the home, for people who need support through the day and reassurance at night.",
-    features: [
-      "One-to-one support around the clock",
-      "Stay in familiar surroundings",
-      "Matched on interests, not just availability",
-      "Respite cover built into the plan",
-    ],
-  },
-  {
-    slug: "dementia-care",
-    title: "Dementia care",
-    lane: "b2c",
-    arm: "find-care",
-    summary:
-      "Specialist support from carers trained in dementia, delivered with routine and patience.",
-    features: [
-      "Carers trained in dementia and distressed behaviour",
-      "Routines built around the person",
-      "Family guidance between visits",
-      "Care plans reviewed as needs change",
-    ],
-  },
-  {
-    slug: "respite-care",
-    title: "Respite care",
-    lane: "b2c",
-    arm: "find-care",
-    summary:
-      "Short-term cover so family carers can rest, recover or take a holiday.",
-    features: [
-      "Cover from a single day upwards",
-      "Same assessment and care plan standards",
-      "Emergency cover where we have capacity",
-      "Handover notes on return",
-    ],
+    href: "/find-care",
   },
   {
     slug: "cqc-registration",
     title: "CQC registration",
     lane: "b2b",
-    arm: "registration",
+    arm: "agency",
     summary:
-      "End-to-end support through registration: provider application, registered manager and interview preparation.",
+      "End-to-end registration: provider application, registered manager, statement of purpose and interview preparation.",
     features: [
       "Statement of purpose and provider application",
-      "Registered manager sourcing and interview prep",
-      "Policy suite mapped to the quality statements",
-      "Support through to the registration decision",
+      "Registered manager and nominated individual support",
+      "Evidence mapped to the single assessment framework",
+      "Interview preparation through to the decision",
     ],
   },
   {
-    slug: "policies-and-compliance",
-    title: "Policies and compliance",
+    slug: "tender-writing",
+    title: "Tender and framework writing",
     lane: "b2b",
-    arm: "registration",
+    arm: "agency",
     summary:
-      "A policy suite that survives inspection, plus the audit routine to keep it current.",
+      "Get onto local-authority frameworks and dynamic purchasing systems, and win the contracts that make a provider viable.",
     features: [
-      "Policies mapped to the single assessment framework",
+      "Framework, DPS and portal registration",
+      "Bid writing and social value responses",
+      "Pricing and capacity modelling",
+      "Post-award mobilisation",
+    ],
+  },
+  {
+    slug: "policies-procedures",
+    title: "Policies and procedures",
+    lane: "b2b",
+    arm: "agency",
+    summary:
+      "A policy suite that survives inspection, plus the audit routine that keeps it true in practice.",
+    features: [
+      "Policies mapped to the quality statements",
       "Audit calendar and evidence templates",
       "Mock inspection and action plan",
       "Annual review and updates",
     ],
   },
   {
-    slug: "tender-writing",
-    title: "Tenders and bids",
+    slug: "digital-branding",
+    title: "Digital and branding",
     lane: "b2b",
-    arm: "growth",
+    arm: "agency",
     summary:
-      "Get onto local-authority frameworks and win the contracts that make a care business viable.",
-    features: [
-      "Framework and portal registration",
-      "Bid writing and social value responses",
-      "Pricing and capacity modelling",
-      "Post-award mobilisation support",
-    ],
-  },
-  {
-    slug: "branding-and-marketing",
-    title: "Branding and marketing",
-    lane: "b2b",
-    arm: "growth",
-    summary:
-      "A brand, a website and a referral route, so enquiries arrive without you chasing them.",
+      "Brand, website and referral routes, so enquiries arrive without chasing them.",
     features: [
       "Identity, tone and print collateral",
       "Website built for local search",
@@ -188,52 +130,174 @@ export const SERVICES: Service[] = [
     ],
   },
   {
-    slug: "staffing-and-recruitment",
-    title: "Staffing and recruitment",
+    slug: "consulting",
+    title: "Consulting",
     lane: "b2b",
-    arm: "staffing",
+    arm: "agency",
     summary:
-      "Recruit and vet carers properly the first time, and keep them past their first year.",
+      "Business planning, governance and growth advice from people running a regulated service themselves.",
     features: [
-      "Right-to-work and DBS compliant onboarding",
-      "Induction mapped to the Care Certificate",
-      "Retention and supervision frameworks",
-      "Temporary cover for gaps in the rota",
+      "Business plans and financial modelling",
+      "Governance and quality assurance",
+      "Growth and mobilisation planning",
+      "Ongoing advisory retainer",
+    ],
+  },
+  {
+    slug: "staffing",
+    title: "Rakuxon Staffing",
+    lane: "b2b",
+    arm: "agency",
+    summary:
+      "Recruitment and temporary staffing supplying vetted carers and support workers to other providers.",
+    features: [
+      "Permanent care-worker recruitment",
+      "Temporary and bank cover",
+      "Temp-to-perm placements",
+      "Registered manager and nominated individual search",
+    ],
+    href: "/staffing",
+  },
+];
+
+/* PRD §7 — real figures from the internal planning material. Not placeholders.
+   Citations still need adding before launch; see TODO.md. */
+export const MARKET_STATS: Stat[] = [
+  {
+    value: "£77.8bn",
+    label:
+      "Adult social care's contribution to the England economy, up 12.2% year on year",
+  },
+  {
+    value: "15,232",
+    label:
+      "CQC-registered domiciliary care locations in England, up 81% since 2017",
+  },
+  {
+    value: "1.71m",
+    label: "Jobs across the adult social care workforce in England",
+  },
+  {
+    value: "+11%",
+    label: "Growth in home care locations this year, while residential shrank",
+  },
+];
+
+/** A shorter set for tighter bands. */
+export const MARKET_STATS_COMPACT: Stat[] = [
+  { value: "£77.8bn", label: "Sector contribution to the England economy" },
+  { value: "15,232", label: "Registered domiciliary care locations" },
+  { value: "1.71m", label: "Adult social care jobs in England" },
+  { value: "~10%", label: "Vacancy rate in home care roles" },
+];
+
+/** PRD §7 — demand-side figures for the Arm 1 lane. */
+export const DEMAND_STATS: Stat[] = [
+  { value: "683,000", label: "People receiving long-term council-funded care" },
+  {
+    value: "2.02m",
+    label: "New requests for support logged by councils last year",
+  },
+  {
+    value: "~10%",
+    label: "Vacancy rate in home care roles, nearly double care homes",
+  },
+  { value: "+11%", label: "Growth in home care locations this year" },
+];
+
+/** PRD §5.3 — the three segments Arm 2 serves. */
+export const SEGMENTS: Segment[] = [
+  {
+    title: "Pre-start-up founders",
+    body: "You have decided to start a care business and need registration, policies and a route to first contracts.",
+  },
+  {
+    title: "Existing minority-led providers",
+    body: "You are registered but under-resourced, and the tender and compliance work keeps slipping.",
+  },
+  {
+    title: "Growth-stage providers",
+    body: "You are winning work and need staffing, systems and governance to scale without losing your rating.",
+  },
+];
+
+/** PRD §5.4 — Launch Kit contents, grouped exactly as the deck defines. */
+export const LAUNCH_KIT: LaunchKitGroup[] = [
+  {
+    title: "Governance and registration",
+    items: [
+      "Business plan",
+      "Business intention letter",
+      "Business registration",
+      "Policies and procedures",
+      "Terms and conditions",
+    ],
+  },
+  {
+    title: "People and HR documents",
+    items: [
+      "Job application form",
+      "Interview forms (x3)",
+      "Reference forms",
+      "Staff handbook",
+      "Casual worker agreement",
+      "Temp-to-perm contract",
+      "Staff profile",
+      "Staff feedback form",
+    ],
+  },
+  {
+    title: "Operations documents",
+    items: [
+      "Timesheet",
+      "Mileage form",
+      "Invoice template",
+      "Price list",
+      "Accident and incident investigation report",
+    ],
+  },
+  {
+    title: "Presence and credibility",
+    items: [
+      "Virtual landline",
+      "Listing on our website",
+      "Listing on the national booking form",
+      "Two-hour 1:1 coaching webinar",
     ],
   },
 ];
 
-export const STATS: Stat[] = [
-  { value: "120+", label: "Care businesses supported" },
-  { value: "94%", label: "First-time CQC registrations" },
-  { value: "12", label: "Local authority frameworks" },
-  { value: "10 yrs", label: "In the UK care sector" },
+/** PRD §5.5 — how Rakuxon Staffing operates safely. */
+export const STAFFING_SAFEGUARDS: string[] = [
+  "Enhanced DBS and right-to-work checks on every worker",
+  "EAS-regulated under the Conduct of Employment Agencies and Employment Businesses Regulations 2003",
+  "Reference checks before placement",
+  "Mandatory training and Care Certificate tracking",
+  "Full audit trail so clients can evidence safe recruitment to CQC",
 ];
 
 export const CARE_PROCESS: ProcessStep[] = [
   {
     number: "01",
     title: "Enquiry",
-    description:
-      "Tell us what is happening. One conversation, no obligation, no sales script.",
+    description: "Tell us what is happening. One conversation, no obligation.",
   },
   {
     number: "02",
     title: "Assessment",
     description:
-      "We visit at home to understand the person, the routine and the risks.",
+      "We visit at home to understand the person, routine and risks.",
   },
   {
     number: "03",
     title: "Care plan",
     description:
-      "A written plan you agree to, with named carers and a clear schedule.",
+      "A written plan you agree to, with named carers and a schedule.",
   },
   {
     number: "04",
     title: "Care starts",
-    description:
-      "Support begins, and the plan is reviewed as needs change rather than annually.",
+    description: "Support begins, and the plan is reviewed as needs change.",
   },
 ];
 
@@ -241,26 +305,22 @@ export const BUSINESS_PROCESS: ProcessStep[] = [
   {
     number: "01",
     title: "Foundation",
-    description:
-      "Company, insurance, banking and the statement of purpose that anchors everything else.",
+    description: "Company, insurance, banking and the statement of purpose.",
   },
   {
     number: "02",
     title: "Registration",
-    description:
-      "Provider application, registered manager in post, and interview preparation.",
+    description: "Provider application, registered manager, interview prep.",
   },
   {
     number: "03",
     title: "Launch",
-    description:
-      "Policies live, staff onboarded, first packages delivered and evidenced.",
+    description: "Policies live, staff onboarded, first packages evidenced.",
   },
   {
     number: "04",
     title: "Growth",
-    description:
-      "Framework applications, tenders and the brand that brings enquiries to you.",
+    description: "Frameworks, tenders and the brand that brings enquiries in.",
   },
 ];
 
@@ -294,23 +354,23 @@ export const TESTIMONIALS: Testimonial[] = [
     quote:
       "Booking took one phone call. The assessment happened at Dad's kitchen table two days later, and nothing was rushed.",
     name: "Placeholder name",
-    role: "Teacher",
+    role: "Family carer",
     lane: "b2c",
   },
   {
     id: "t5",
     quote:
-      "The care notes go straight to my phone. I live four hours away and I finally stopped feeling guilty about it.",
+      "They filled a fortnight of bank shifts at three days' notice, and every worker's file was already in order.",
     name: "Placeholder name",
-    role: "Engineer",
-    lane: "b2c",
+    role: "Operations lead, placeholder provider",
+    lane: "b2b",
   },
   {
     id: "t6",
     quote:
       "They told us we were not ready to submit, six weeks before we would have found out the hard way.",
     name: "Placeholder name",
-    role: "Business consultant",
+    role: "Founder, placeholder provider",
     lane: "b2b",
   },
 ];
@@ -323,33 +383,33 @@ export const FAQS: Faq[] = [
     lane: "b2c",
   },
   {
-    question: "Are your carers CQC registered and DBS checked?",
+    question: "Do you take council-funded and NHS packages?",
     answer:
-      "Care is delivered under a CQC-registered service, and every carer holds an enhanced DBS check with verified right-to-work documents before their first shift.",
+      "Yes. We work with local authorities, ICBs and NHS Continuing Healthcare, and with direct-payment and personal-budget clients.",
     lane: "b2c",
   },
   {
-    question: "Can the council pay for care?",
+    question: "Are your carers DBS checked?",
     answer:
-      "Yes. We work with local-authority commissioners on funded packages, and we can explain the assessment route if funding is not yet in place.",
+      "Every carer holds an enhanced DBS check with verified right-to-work documents before their first shift.",
     lane: "b2c",
+  },
+  {
+    question: "What makes Rakuxon different from other care consultancies?",
+    answer:
+      "We run our own CQC-registered care service. Every framework, policy and bid we sell is one we use in a service that is inspected against the same standards.",
+    lane: "b2b",
   },
   {
     question: "How long does CQC registration take?",
     answer:
-      "Ten to sixteen weeks is typical once the application is submitted, though the preparation before submission is what usually determines the outcome.",
+      "Ten to sixteen weeks is typical once submitted, though the preparation beforehand is what usually decides the outcome.",
     lane: "b2b",
   },
   {
-    question: "Do I need a registered manager before I apply?",
+    question: "What is included in the Care Business Launch Kit?",
     answer:
-      "Yes. The registered manager application runs alongside the provider application, and we help source and prepare candidates where you do not have one.",
-    lane: "b2b",
-  },
-  {
-    question: "What happens if the application is rejected?",
-    answer:
-      "We review the decision, rebuild the weak evidence and resubmit. Rejections are usually about missing evidence rather than an unfixable problem.",
+      "A fixed-scope package covering governance and registration, HR documents, operations templates, and presence and credibility items. The full contents are listed on the Launch Kit page.",
     lane: "b2b",
   },
 ];
@@ -362,31 +422,33 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Placeholder name",
-    role: "Head of registration",
+    role: "Registered manager, Rakuxon Care",
     bio: "Placeholder biography pending PRD §10 team content.",
   },
   {
     name: "Placeholder name",
-    role: "Head of care",
+    role: "Head of Rakuxon Staffing",
     bio: "Placeholder biography pending PRD §10 team content.",
   },
 ];
 
-/* PRD §9 open question 2 keeps this in the `in-progress` state until the
-   real registration status is confirmed. Flip to `registered` with the
-   rating and profile URL when it is. */
+/* PRD §10 Q2 keeps CQC pinned to in-progress: Arm 1 is pre-registration per
+   the roadmap. Flip to `registered` with rating and profile URL when it is. */
 export const SITE_SETTINGS: SiteSettings = {
   companyName: "Rakuxon Care",
   legalName: "Rakuxon Care Ltd",
   companyNumber: "00000000 (placeholder)",
   icoRegistration: "ZA000000 (placeholder)",
   cqc: { state: "in-progress" },
+  easNote:
+    "Rakuxon Staffing operates under the Conduct of Employment Agencies and Employment Businesses Regulations 2003.",
   email: "hello@example.com",
   phone: "0000 000 0000",
   address: ["Placeholder address line 1", "Placeholder city", "AA1 1AA"],
-  regionsServed: ["Placeholder region — PRD §9 open question 5"],
+  regionsServed: ["Placeholder region — PRD §10 open decision 6"],
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com" },
     { label: "Facebook", href: "https://www.facebook.com" },
+    { label: "Instagram", href: "https://www.instagram.com" },
   ],
 };

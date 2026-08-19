@@ -32,13 +32,53 @@ const SOCIALS = [
   },
 ];
 
-const QUICK_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Find care", href: "/find-care" },
-  { label: "Care businesses", href: "/care-businesses" },
-  { label: "Start a care business", href: "/start-a-care-business" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+/* PRD §3.2 — four columns keyed to the arms, company and getting started.
+   Blog, case studies and careers arrive in Phases 4–5; those links are held
+   back rather than shipped as 404s. Logged in TODO.md. */
+const COLUMNS = [
+  {
+    heading: "Rakuxon Care",
+    links: [
+      { label: "Home care services", href: "/find-care#services" },
+      { label: "Personal care", href: "/find-care#services" },
+      { label: "Domiciliary care", href: "/find-care#services" },
+      { label: "For councils and ICBs", href: "/find-care#councils" },
+      { label: "How it works", href: "/find-care#how-it-works" },
+    ],
+  },
+  {
+    heading: "Rakuxon Care Agency",
+    links: [
+      { label: "CQC registration", href: "/care-businesses#services" },
+      {
+        label: "Tender and framework writing",
+        href: "/care-businesses#services",
+      },
+      { label: "Policies and procedures", href: "/care-businesses#services" },
+      { label: "Digital and branding", href: "/care-businesses#services" },
+      { label: "Consulting", href: "/care-businesses#services" },
+      { label: "Rakuxon Staffing", href: "/staffing" },
+      { label: "Care Business Launch Kit", href: "/launch-kit" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About us", href: "/about" },
+      { label: "Our two-arm model", href: "/about#model" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    heading: "Get started",
+    links: [
+      { label: "Make an enquiry", href: "/contact" },
+      { label: "Create an account", href: "/login" },
+      { label: "Find care", href: "/find-care" },
+      { label: "For care businesses", href: "/care-businesses" },
+    ],
+  },
 ];
 
 export async function SiteFooter() {
@@ -48,7 +88,7 @@ export async function SiteFooter() {
     <footer data-surface="navy" className="pb-6">
       <Container>
         <div className="rounded-lg bg-navy-900 px-6 py-12 text-navy-100 md:px-10 md:py-14">
-          <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
             {/* Left: logo, blurb, socials. */}
             <div className="flex flex-col gap-5">
               <Logo variant="white" className="h-7 self-start" />
@@ -77,12 +117,36 @@ export async function SiteFooter() {
               </ul>
             </div>
 
-            {/* Quick links. */}
+            {COLUMNS.slice(0, 3).map((col) => (
+              <div key={col.heading} className="flex flex-col gap-3">
+                <h2 className="font-display text-h4 text-white">
+                  {col.heading}
+                </h2>
+                <ul className="flex flex-col">
+                  {col.links.map((l) => (
+                    <li key={`${col.heading}-${l.label}`}>
+                      <Link
+                        href={l.href}
+                        className="flex min-h-11 items-center text-navy-100 underline-offset-4 transition-colors hover:text-white hover:underline"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 grid gap-10 border-t border-navy-700 pt-10 md:grid-cols-2">
+            {/* Get started. */}
             <div className="flex flex-col gap-3">
-              <h2 className="font-display text-h4 text-white">Quick links</h2>
+              <h2 className="font-display text-h4 text-white">
+                {COLUMNS[3].heading}
+              </h2>
               <ul className="flex flex-col">
-                {QUICK_LINKS.map((l) => (
-                  <li key={l.href}>
+                {COLUMNS[3].links.map((l) => (
+                  <li key={l.label}>
                     <Link
                       href={l.href}
                       className="flex min-h-11 items-center text-navy-100 underline-offset-4 transition-colors hover:text-white hover:underline"
@@ -142,6 +206,7 @@ export async function SiteFooter() {
                 ? `CQC registered, rated ${settings.cqc.rating}`
                 : "CQC registration in progress"}
             </p>
+            <p className="text-small text-navy-100/85">{settings.easNote}</p>
             <ul className="flex flex-wrap items-center gap-x-5">
               {[
                 { label: "Privacy", href: "/privacy" },

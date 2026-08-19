@@ -2,8 +2,15 @@ import { Container } from "@/components/ui/container";
 import type { Stat } from "@/lib/cms";
 
 /* Reference section 5: four big numbers with captions, on the canvas
-   rather than in cards. */
-export function StatBand({ stats }: { stats: Stat[] }) {
+   rather than in cards. Figures are the real market data from PRD §7, so
+   the band carries a source line — they are external claims, not ours. */
+export function StatBand({
+  stats,
+  caption,
+}: {
+  stats: Stat[];
+  caption?: string;
+}) {
   return (
     <section className="pb-14 md:pb-20">
       <Container>
@@ -18,6 +25,9 @@ export function StatBand({ stats }: { stats: Stat[] }) {
             </div>
           ))}
         </dl>
+        {caption ? (
+          <p className="mt-6 text-small text-ink-500">{caption}</p>
+        ) : null}
       </Container>
     </section>
   );

@@ -1,6 +1,6 @@
 import {
   BadgeCheck,
-  HandCoins,
+  FileCheck2,
   HeartHandshake,
   MonitorSmartphone,
 } from "lucide-react";
@@ -8,26 +8,28 @@ import { Container } from "@/components/ui/container";
 import { Photo } from "@/components/ui/photo";
 import { PHOTOS } from "@/lib/images";
 
+/* PRD §1.1 — the authority moat. Every claim here is about how the two arms
+   relate, not about volumes we have not delivered yet. */
 const FEATURES = [
   {
-    icon: MonitorSmartphone,
-    title: "Modern tools and\nvisit records",
-    body: "Digital care notes families can see, not a paper folder in a cupboard.",
-  },
-  {
-    icon: HandCoins,
-    title: "Transparent, fair\npricing",
-    body: "Quoted per package with no hidden call-out fees or weekend surcharges.",
-  },
-  {
     icon: BadgeCheck,
-    title: "Experienced and\nvetted carers",
-    body: "Enhanced DBS checks and verified right to work before a first shift.",
+    title: "We are inspected\ntoo",
+    body: "Our own service is judged against the framework you are judged against.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Evidence, not\ntemplates",
+    body: "Policies we supply are policies we run, with the audit trail behind them.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "One team, both\nsides",
+    body: "Registration, tenders, digital and staffing handled by people who talk to each other.",
   },
   {
     icon: HeartHandshake,
-    title: "Person-centred\ncare",
-    body: "Plans built around the person's routine, not around our rota.",
+    title: "We will tell you\nno",
+    body: "If an application is not ready we say so before you submit, not after.",
   },
 ];
 

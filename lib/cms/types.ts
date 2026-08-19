@@ -1,24 +1,22 @@
 /**
- * Content model for the stubbed CMS layer.
- *
- * These shapes mirror the collections PRD §6 will specify. They exist now
- * so Phase 2 pages read from a data source rather than hardcoded JSX; in
- * Phase 4 the accessors in `./index.ts` swap to real CMS calls and the
- * pages do not change.
+ * Content model for the stubbed CMS layer, aligned to PRD v2.0 (two-arm
+ * model). Phase 4 swaps the accessors in ./index.ts for real CMS calls;
+ * these shapes stay put.
  */
 
-/** The two audiences. `both` is for shared chrome and cross-lane content. */
+/** PRD §1.3. `both` is for shared chrome and cross-arm content. */
 export type Lane = "b2c" | "b2b" | "both";
 
 export interface Arm {
-  slug: string;
-  /** 1–4. See the ARMS note in ./data.ts for the numbering assumption. */
-  number: 1 | 2 | 3 | 4;
+  slug: "care" | "agency";
+  number: 1 | 2;
+  /** Trading name, e.g. "Rakuxon Care" / "Rakuxon Care Agency". */
   name: string;
+  laneLabel: string;
   lane: Lane;
+  audience: string;
   summary: string;
   href: string;
-  /** Service slugs delivered under this arm. */
   services: string[];
 }
 
@@ -26,9 +24,11 @@ export interface Service {
   slug: string;
   title: string;
   lane: Lane;
-  arm: string;
+  arm: Arm["slug"];
   summary: string;
   features: string[];
+  /** Arm 2 service lines get their own page where one exists. */
+  href?: string;
 }
 
 export interface Stat {
@@ -62,6 +62,18 @@ export interface TeamMember {
   bio: string;
 }
 
+/** PRD §5.3 — the three B2B segments Arm 2 serves. */
+export interface Segment {
+  title: string;
+  body: string;
+}
+
+/** PRD §5.4 — Launch Kit contents, grouped exactly as the deck defines. */
+export interface LaunchKitGroup {
+  title: string;
+  items: string[];
+}
+
 export type CqcStatus =
   | { state: "registered"; rating: string; profileUrl: string }
   | { state: "in-progress" };
@@ -72,6 +84,8 @@ export interface SiteSettings {
   companyNumber: string;
   icoRegistration: string;
   cqc: CqcStatus;
+  /** PRD §3.2 — EAS note for Rakuxon Staffing. */
+  easNote: string;
   email: string;
   phone: string;
   address: string[];

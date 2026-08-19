@@ -2,23 +2,26 @@ import {
   ARMS,
   BUSINESS_PROCESS,
   CARE_PROCESS,
+  DEMAND_STATS,
   FAQS,
+  LAUNCH_KIT,
+  MARKET_STATS,
+  MARKET_STATS_COMPACT,
+  SEGMENTS,
   SERVICES,
   SITE_SETTINGS,
-  STATS,
+  STAFFING_SAFEGUARDS,
   TEAM,
   TESTIMONIALS,
 } from "./data";
-import type { Lane } from "./types";
+import type { Arm, Lane } from "./types";
 
 export * from "./types";
 
 /**
  * Accessors are async so Phase 4 can swap the stub dataset for real CMS
- * calls without touching a single call site. Lane filters include `both`,
- * which is how shared content reaches either hub.
+ * calls without touching a call site.
  */
-
 const matchesLane = (lane: Lane, filter?: Lane) =>
   !filter || filter === "both" || lane === filter || lane === "both";
 
@@ -26,8 +29,12 @@ export async function getSiteSettings() {
   return SITE_SETTINGS;
 }
 
-export async function getArms(lane?: Lane) {
-  return ARMS.filter((a) => matchesLane(a.lane, lane));
+export async function getArms() {
+  return ARMS;
+}
+
+export async function getArm(slug: Arm["slug"]) {
+  return ARMS.find((a) => a.slug === slug) ?? null;
 }
 
 export async function getServices(lane?: Lane) {
@@ -38,12 +45,29 @@ export async function getService(slug: string) {
   return SERVICES.find((s) => s.slug === slug) ?? null;
 }
 
-export async function getServicesByArm(armSlug: string) {
-  return SERVICES.filter((s) => s.arm === armSlug);
+export async function getServicesByArm(arm: Arm["slug"]) {
+  return SERVICES.filter((s) => s.arm === arm);
 }
 
-export async function getStats() {
-  return STATS;
+/** PRD §7 market figures. `compact` trims the labels for tight bands. */
+export async function getMarketStats(variant: "full" | "compact" = "compact") {
+  return variant === "full" ? MARKET_STATS : MARKET_STATS_COMPACT;
+}
+
+export async function getDemandStats() {
+  return DEMAND_STATS;
+}
+
+export async function getSegments() {
+  return SEGMENTS;
+}
+
+export async function getLaunchKit() {
+  return LAUNCH_KIT;
+}
+
+export async function getStaffingSafeguards() {
+  return STAFFING_SAFEGUARDS;
 }
 
 export async function getProcess(lane: Extract<Lane, "b2c" | "b2b">) {
