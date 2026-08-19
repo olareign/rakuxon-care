@@ -1,0 +1,36 @@
+import type { ProcessStep } from "@/lib/cms";
+import type { Lane } from "@/lib/cms";
+
+/* §4.11 / §0.1 "working process": numbered steps with large faint numerals. */
+export function ProcessTimeline({
+  steps,
+  lane = "both",
+}: {
+  steps: ProcessStep[];
+  lane?: Lane;
+}) {
+  const numberTone = lane === "b2c" ? "text-care-100" : "text-navy-100";
+
+  return (
+    <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step) => (
+        <li
+          key={step.number}
+          className="relative flex flex-col gap-2 overflow-hidden rounded-lg bg-paper-100 p-6 shadow-card"
+        >
+          <span
+            aria-hidden="true"
+            className={`absolute -top-2 right-2 text-[4rem] leading-none font-bold ${numberTone}`}
+          >
+            {step.number}
+          </span>
+          <span className="relative text-overline text-ink-500 uppercase">
+            Step {step.number}
+          </span>
+          <h3 className="relative text-h4">{step.title}</h3>
+          <p className="relative text-ink-500">{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}

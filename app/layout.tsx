@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
+import { CookieConsent } from "@/components/marketing/cookie-consent";
+import { SiteFooter } from "@/components/marketing/site-footer";
+import { SiteHeader } from "@/components/marketing/site-header";
+import { StickyCta } from "@/components/marketing/sticky-cta";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -43,8 +47,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        {/* Header and footer landmarks arrive in Phase 1. */}
+        <SiteHeader />
         <main id="main">{children}</main>
+        <SiteFooter />
+        <CookieConsent />
+        <StickyCta />
       </body>
     </html>
   );
