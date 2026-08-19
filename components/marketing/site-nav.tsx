@@ -25,6 +25,7 @@ export interface NavArm {
    is surfaced for now rather than shipping links that 404. Logged in
    TODO.md. */
 const LINKS = [
+  { label: "Home", href: "/" },
   { label: "Find care", href: "/find-care" },
   { label: "Launch Kit", href: "/launch-kit" },
   { label: "About", href: "/about" },
@@ -223,6 +224,8 @@ export function SiteNav({ arms }: { arms: { one: NavArm; two: NavArm } }) {
 
                 <ul className="mt-6 flex flex-col border-t border-ink-300/50 pt-2">
                   {[
+                    { label: "Home", href: "/" },
+                    { label: "All services", href: "/services" },
                     { label: "Launch Kit", href: "/launch-kit" },
                     { label: "Rakuxon Staffing", href: "/staffing" },
                     { label: "About", href: "/about" },

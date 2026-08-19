@@ -27,7 +27,13 @@ export interface Service {
   arm: Arm["slug"];
   summary: string;
   features: string[];
-  /** Arm 2 service lines get their own page where one exists. */
+  /** Longer intro for the /services/{slug} detail template. */
+  overview: string;
+  /** "Who it's for" bullets — PRD §5.6. */
+  whoFor: string[];
+  /** Optional sub-sections, anchored (e.g. personal vs domiciliary care). */
+  sections?: { id: string; title: string; body: string; items: string[] }[];
+  /** Set when the service has its own top-level page instead of /services/{slug}. */
   href?: string;
 }
 

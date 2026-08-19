@@ -72,7 +72,7 @@ export default async function LaunchKitPage() {
             <div className="flex flex-col items-start gap-5">
               <span className="inline-flex items-center gap-2 rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
                 <Package className="size-3.5" aria-hidden="true" />
-                Arm 2 — productised offer
+                Productised offer
               </span>
               <h1 className="text-h1">Care Business Launch Kit</h1>
               <p className="measure text-body-lg text-ink-700">

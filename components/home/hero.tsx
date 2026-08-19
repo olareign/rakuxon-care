@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Phone, ShieldCheck } from "lucide-react";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Photo } from "@/components/ui/photo";
@@ -9,9 +9,9 @@ import type { CqcStatus } from "@/lib/cms";
 
 /* Reference section 2, carrying the PRD §1.1 authority story.
    The floating cards previously showed invented volume metrics ("4,000
-   carers matched", "5k+ families"). Arm 1 is pre-registration per PRD §10,
-   so those claims were false and are replaced by the real market figures
-   from §7 and an honest registration status. */
+   carers matched", "5k+ families"). The care service is pre-registration
+   per PRD §10, so those claims were false and are replaced by the real
+   market figures from §7 and an honest registration status. */
 export function Hero({ cqc }: { cqc: CqcStatus }) {
   return (
     <section className="pt-6 pb-12 md:pt-8 md:pb-16">
@@ -144,13 +144,24 @@ export function Hero({ cqc }: { cqc: CqcStatus }) {
                 </span>
               </div>
               <div className="flex min-w-0 flex-col gap-2">
+                {/* Kept short: the reference uses a two-word label plus a
+                    contact line, which is what lets the photo and text share
+                    a third of the grid without collapsing between 1024px and
+                    1200px. */}
                 <p className="font-display text-h4 text-ink-900">
-                  Personal and
-                  <br /> domiciliary care
+                  Care at
+                  <br /> home
                 </p>
-                <p className="text-small text-ink-500">
-                  Delivered in the person&rsquo;s own home
-                </p>
+                <a
+                  href="tel:00000000000"
+                  className="inline-flex min-h-11 items-center gap-2 text-small text-ink-700 underline-offset-4 hover:underline"
+                >
+                  <Phone
+                    className="size-4 shrink-0 text-care-600"
+                    aria-hidden="true"
+                  />
+                  0000 000 0000
+                </a>
               </div>
             </div>
           </div>

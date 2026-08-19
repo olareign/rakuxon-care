@@ -21,7 +21,7 @@ import { PHOTOS } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Find care",
   description:
-    "Personal care and domiciliary care at home from Rakuxon Care, Arm 1 of the Rakuxon model. For families, local authorities, ICBs and NHS Continuing Healthcare.",
+    "Personal care and domiciliary care at home from Rakuxon Care. For families, local authorities, ICBs and NHS Continuing Healthcare.",
 };
 
 /* PRD §5.2 — Arm 1 hub. Warm, reassurance-led. */
@@ -75,7 +75,7 @@ export default async function FindCarePage() {
             <div className="flex flex-col items-start gap-5">
               <span className="inline-flex items-center gap-2 rounded-pill bg-care-100 px-3 py-1 text-overline text-care-700 uppercase">
                 <HeartHandshake className="size-3.5" aria-hidden="true" />
-                Arm 1 — Rakuxon Care
+                Rakuxon Care
               </span>
               <h1 className="text-h1">Care at home, for people you love</h1>
               <p className="measure text-body-lg text-ink-700">

@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
         destination: "/launch-kit",
         permanent: true,
       },
+      {
+        // Staffing has its own top-level page (PRD §5.5); keep the
+        // /services/{slug} form working rather than 404ing.
+        source: "/services/staffing",
+        destination: "/staffing",
+        permanent: true,
+      },
     ];
   },
 };
