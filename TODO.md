@@ -71,29 +71,29 @@ hero, trust strip, about, stats, services, personalised, working process,
 why-choose-us, CTA band, specialists, testimonials, FAQ, footer). Colour and
 copy are Rakuxon's; everything else follows the reference. Consequences:
 
-* **The dual-lane split hero is gone.** `design-system.md` §4.3 calls the
+- **The dual-lane split hero is gone.** `design-system.md` §4.3 calls the
   split hero the signature component; the reference has a single centred
   hero, and matching the reference was the explicit instruction. Both
   audiences are now carried by the services section's two cards and by the
   lane split at the top of the mobile drawer. **§4.3 and this build now
   disagree — one of them should be updated.**
-* **The Services mega-menu is gone.** The reference navbar is plain centred
+- **The Services mega-menu is gone.** The reference navbar is plain centred
   links, so the two-lane mega-menu (§4.2) was replaced by a `Services` link
   to the home services section. The lane split survives in the drawer only.
-* **Partner logos in the trust strip are invented.** Real partner marks
+- **Partner logos in the trust strip are invented.** Real partner marks
   cannot be shown until Rakuxon confirms who may be named; showing real
   organisations would assert relationships that do not exist. The six marks
   are drawn placeholders with invented names (Northgate Trust, Brightpath,
   Elmwood Group, Carevale, Meridian Health, Oakline). **Replace or remove
   before launch.**
-* **Social icons are hand-drawn.** Lucide 1.x ships no brand icons at all,
+- **Social icons are hand-drawn.** Lucide 1.x ships no brand icons at all,
   so LinkedIn/Facebook/X glyphs are inline SVG in `specialists.tsx` and
   `site-footer.tsx`. The specialists' icons are deliberately **inert** —
   the placeholder team has no profiles, and an icon that links nowhere is
   worse than none. Wire them up with the real team content.
-* **The video-review card has no video.** It shows a still with a "Video
+- **The video-review card has no video.** It shows a still with a "Video
   review coming soon" label rather than a play control that does nothing.
-* **Step numerals are less faint than the reference.** The reference's
+- **Step numerals are less faint than the reference.** The reference's
   01–04 are extremely light; at `navy-100` on `paper-50` they measured
   1.19:1. Because they carry the step order they are text, not decoration,
   so they use `navy-600/70` (3.29:1, passing AA for large text).
