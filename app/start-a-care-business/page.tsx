@@ -3,7 +3,8 @@ import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/marketing/faq-accordion";
-import { ImagePlaceholder } from "@/components/marketing/image-placeholder";
+import { Photo } from "@/components/ui/photo";
+import { PHOTOS } from "@/lib/images";
 import { ProcessTimeline } from "@/components/marketing/process-timeline";
 import { Section, SectionIntro } from "@/components/marketing/section";
 import { getFaqs, getProcess } from "@/lib/cms";
@@ -69,10 +70,13 @@ export default async function StartACareBusinessPage() {
                 Book a scoping call
               </Link>
             </div>
-            <ImagePlaceholder
-              lane="b2b"
+            <Photo
+              photo={PHOTOS.businessPlanning}
               ratio="4/3"
-              label="Founder at a desk planning a new care service"
+              duotone="none"
+              priority
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="shadow-card"
             />
           </div>
         </Container>
@@ -110,16 +114,17 @@ export default async function StartACareBusinessPage() {
         </div>
       </Section>
 
-      <Section tint="navy">
+      <Section tint="deep">
         <SectionIntro
+          invert
           eyebrow="Timeline"
           title="Four stages, roughly six months"
           subtitle="The CQC decision is the long pole. Everything before it is preparation that shortens it."
         />
         <div className="mt-12">
-          <ProcessTimeline steps={process} lane="b2b" />
+          <ProcessTimeline steps={process} lane="b2b" invert />
         </div>
-        <p className="measure mx-auto mt-8 text-center text-small text-ink-500">
+        <p className="measure mx-auto mt-8 text-center text-small text-navy-100">
           Indicative only. Registration timescales are set by CQC, not by us,
           and depend on the quality of the application and manager availability.
         </p>

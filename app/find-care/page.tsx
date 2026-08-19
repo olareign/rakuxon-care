@@ -4,10 +4,11 @@ import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { CqcBadge } from "@/components/marketing/cqc-badge";
 import { FaqAccordion } from "@/components/marketing/faq-accordion";
-import { ImagePlaceholder } from "@/components/marketing/image-placeholder";
+import { Photo } from "@/components/ui/photo";
+import { ImageCard } from "@/components/marketing/cards";
+import { PHOTOS } from "@/lib/images";
 import { ProcessTimeline } from "@/components/marketing/process-timeline";
 import { Section, SectionIntro } from "@/components/marketing/section";
-import { ServiceCard } from "@/components/marketing/service-card";
 import { getFaqs, getProcess, getServices, getSiteSettings } from "@/lib/cms";
 
 export const metadata: Metadata = {
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
   description:
     "CQC-registered care at home for families and councils: home care visits, live-in care, dementia care and respite. Assessment at home, consistent carers, plans reviewed as needs change.",
 };
+
+const SERVICE_PHOTOS = [
+  PHOTOS.carerSupport,
+  PHOTOS.carerBedside,
+  PHOTOS.seniorMedication,
+  PHOTOS.familySupport,
+];
 
 export default async function FindCarePage() {
   const [services, process, faqs, settings] = await Promise.all([
@@ -58,10 +66,13 @@ export default async function FindCarePage() {
                 </Link>
               </div>
             </div>
-            <ImagePlaceholder
-              lane="b2c"
-              ratio="4/3"
-              label="Carer supporting an older person at home — warm, domestic, unposed"
+            <Photo
+              photo={PHOTOS.coupleAtHome}
+              ratio="4/5"
+              duotone="none"
+              priority
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="shadow-card"
             />
           </div>
         </Container>
@@ -75,13 +86,14 @@ export default async function FindCarePage() {
           subtitle="Every package starts from an assessment at home, so the plan matches the person rather than a template."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s) => (
-            <ServiceCard
+          {services.map((s, i) => (
+            <ImageCard
               key={s.slug}
-              title={s.title}
-              summary={s.summary}
-              href="/contact"
               lane="b2c"
+              photo={SERVICE_PHOTOS[i % SERVICE_PHOTOS.length]}
+              title={s.title}
+              body={s.summary}
+              href="/contact"
             />
           ))}
         </div>
@@ -135,6 +147,13 @@ export default async function FindCarePage() {
             </Link>
           </div>
           <div className="flex flex-col gap-4 rounded-lg border border-navy-100 bg-navy-50 p-8">
+            <Photo
+              photo={PHOTOS.businessReview}
+              ratio="16/9"
+              radius="md"
+              duotone="navy"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
             <h3 className="text-h4">Areas we serve</h3>
             <ul className="flex flex-col gap-2">
               {settings.regionsServed.map((r) => (

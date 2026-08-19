@@ -1,4 +1,6 @@
-import { ImagePlaceholder } from "@/components/marketing/image-placeholder";
+import { Photo } from "@/components/ui/photo";
+import { CheckRow } from "@/components/marketing/cards";
+import type { Photo as PhotoData } from "@/lib/images";
 import { cn } from "@/lib/cn";
 import type { Lane } from "@/lib/cms";
 
@@ -9,7 +11,7 @@ export function FeatureRow({
   title,
   body,
   features,
-  imageLabel,
+  photo,
   lane = "both",
   reverse = false,
   children,
@@ -18,20 +20,19 @@ export function FeatureRow({
   title: string;
   body?: string;
   features?: string[];
-  imageLabel: string;
+  photo: PhotoData;
   lane?: Lane;
   reverse?: boolean;
   children?: React.ReactNode;
 }) {
-  const tick = lane === "b2c" ? "text-care-600" : "text-navy-800";
-
   return (
     <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-      <ImagePlaceholder
-        label={imageLabel}
-        lane={lane}
+      <Photo
+        photo={photo}
         ratio="4/3"
-        className={cn(reverse && "lg:order-2")}
+        duotone={lane === "b2c" ? "care" : "navy"}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        className={cn("shadow-card", reverse && "lg:order-2")}
       />
       <div className="flex flex-col gap-5">
         {eyebrow ? (
@@ -46,19 +47,9 @@ export function FeatureRow({
         {features?.length ? (
           <ul className="flex flex-col gap-3">
             {features.map((f) => (
-              <li
-                key={f}
-                className="flex items-start gap-3 rounded-md bg-paper-100 px-4 py-3 shadow-card"
-              >
-                <svg
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                  className={cn("mt-1 size-4 shrink-0 fill-current", tick)}
-                >
-                  <path d="M16.7 5.3a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0L3.3 9.7a1 1 0 0 1 1.4-1.4l3.8 3.8 6.8-6.8a1 1 0 0 1 1.4 0Z" />
-                </svg>
-                <span className="text-ink-700">{f}</span>
-              </li>
+              <CheckRow key={f} lane={lane}>
+                {f}
+              </CheckRow>
             ))}
           </ul>
         ) : null}

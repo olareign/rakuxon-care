@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { Logo } from "@/components/marketing/logo";
 import { getArms, getSiteSettings } from "@/lib/cms";
 
 /* §4.15: four columns plus a utility bar carrying legal, CQC/ICO/company
@@ -50,7 +51,15 @@ export async function SiteFooter() {
   return (
     <footer data-surface="navy" className="bg-navy-900 text-navy-100">
       <Container>
-        <div className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col gap-4 border-b border-navy-700 py-12">
+          <Logo variant="white" className="h-7 self-start" />
+          <p className="measure text-navy-100">
+            CQC-registered care at home, and end-to-end support for the
+            businesses that deliver it.
+          </p>
+        </div>
+
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((col) => (
             <div key={col.heading} className="flex flex-col gap-4">
               <h2 className="text-overline text-white uppercase">
@@ -76,13 +85,13 @@ export async function SiteFooter() {
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
             <a
               href={`mailto:${settings.email}`}
-              className="text-white underline-offset-4 hover:underline"
+              className="inline-flex min-h-11 items-center text-white underline-offset-4 hover:underline"
             >
               {settings.email}
             </a>
             <a
               href={`tel:${settings.phone.replace(/\s/g, "")}`}
-              className="text-white underline-offset-4 hover:underline"
+              className="inline-flex min-h-11 items-center text-white underline-offset-4 hover:underline"
             >
               {settings.phone}
             </a>
@@ -91,7 +100,7 @@ export async function SiteFooter() {
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    className="text-navy-100 underline-offset-4 hover:text-white hover:underline"
+                    className="inline-flex min-h-11 items-center text-navy-100 underline-offset-4 hover:text-white hover:underline"
                   >
                     {s.label}
                   </a>

@@ -165,7 +165,19 @@
   h5,
   h6 {
     color: var(--color-ink-900);
+    font-family: var(--font-display);
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Photography is never allowed to exceed its box (responsiveness rule). */
+  img,
+  svg,
+  video {
+    max-width: 100%;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -187,5 +199,32 @@
   /* Constrain long-form copy to the §2 measure. */
   .measure {
     max-width: var(--measure);
+  }
+
+  /* §3: subtle navy/teal duotone so photography from mixed sources reads
+     as one set. Applied by the Photo component, not by hand. */
+  .duotone-navy::after,
+  .duotone-care::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  .duotone-navy::after {
+    background: linear-gradient(
+      190deg,
+      rgb(31 56 100 / 0.16),
+      rgb(16 32 61 / 0.28)
+    );
+  }
+
+  .duotone-care::after {
+    background: linear-gradient(
+      190deg,
+      rgb(21 131 104 / 0.12),
+      rgb(15 110 86 / 0.24)
+    );
   }
 }

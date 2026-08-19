@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
+import {
+  ClipboardCheck,
+  FileSignature,
+  HeartHandshake,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { CqcBadge } from "@/components/marketing/cqc-badge";
-import { ImagePlaceholder } from "@/components/marketing/image-placeholder";
+import { Photo } from "@/components/ui/photo";
+import { IconCard, StatCard } from "@/components/marketing/cards";
+import { PHOTOS } from "@/lib/images";
 import { Section, SectionIntro } from "@/components/marketing/section";
-import { ServiceCard } from "@/components/marketing/service-card";
-import { StatBand } from "@/components/marketing/stat-band";
 import { TeamGrid } from "@/components/marketing/team-grid";
 import { getArms, getSiteSettings, getStats, getTeam } from "@/lib/cms";
 
@@ -15,6 +21,8 @@ export const metadata: Metadata = {
   description:
     "Rakuxon Care delivers CQC-registered home care and helps care businesses register, win contracts and recruit. One brand, two audiences, four arms.",
 };
+
+const ARM_ICONS = [HeartHandshake, ClipboardCheck, FileSignature, Users];
 
 export default async function AboutPage() {
   const [arms, stats, team, settings] = await Promise.all([
@@ -44,9 +52,12 @@ export default async function AboutPage() {
 
       <Section tint="paper">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <ImagePlaceholder
+          <Photo
+            photo={PHOTOS.businessTeam}
             ratio="4/3"
-            label="The team at work — candid, professional, not stock-posed"
+            duotone="navy"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="shadow-card"
           />
           <div className="flex flex-col gap-5">
             <h2 className="text-h2">Why both sides</h2>
@@ -72,23 +83,26 @@ export default async function AboutPage() {
           subtitle="One arm serves families and councils directly. Three serve the businesses that do the same."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {arms.map((arm) => (
-            <ServiceCard
-              key={arm.slug}
-              eyebrow={`Arm ${arm.number}`}
-              title={arm.name}
-              summary={arm.summary}
-              href={arm.href}
-              lane={arm.lane}
-            />
+          {arms.map((arm, i) => (
+            <Link key={arm.slug} href={arm.href} className="group">
+              <IconCard
+                icon={ARM_ICONS[i % ARM_ICONS.length]}
+                title={arm.name}
+                body={arm.summary}
+                lane={arm.lane}
+                className="transition-colors group-hover:bg-paper-0"
+              />
+            </Link>
           ))}
         </div>
       </Section>
 
       <Section tint="navy">
         <SectionIntro eyebrow="Credibility" title="Where we stand today" />
-        <div className="mt-12">
-          <StatBand stats={stats} />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s) => (
+            <StatCard key={s.label} value={s.value} label={s.label} />
+          ))}
         </div>
         <p className="measure mx-auto mt-8 text-center text-small text-ink-500">
           Placeholder figures. Real numbers are owed by PRD §10 and must be

@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
+import {
+  FileSignature,
+  MessageSquareWarning,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/marketing/faq-accordion";
-import { ImagePlaceholder } from "@/components/marketing/image-placeholder";
+import { Photo } from "@/components/ui/photo";
+import { IconCard, ImageCard, StatCard } from "@/components/marketing/cards";
+import { PHOTOS } from "@/lib/images";
 import { ProcessTimeline } from "@/components/marketing/process-timeline";
 import { Section, SectionIntro } from "@/components/marketing/section";
-import { ServiceCard } from "@/components/marketing/service-card";
-import { StatBand } from "@/components/marketing/stat-band";
 import { getArms, getFaqs, getProcess, getServices, getStats } from "@/lib/cms";
 
 export const metadata: Metadata = {
@@ -15,6 +21,16 @@ export const metadata: Metadata = {
   description:
     "CQC registration, tenders and bids, branding and staffing for UK care providers. End-to-end support from company formation to your first contract.",
 };
+
+const WHY_ICONS = [ShieldCheck, FileSignature, Users, MessageSquareWarning];
+
+const B2B_PHOTOS = [
+  PHOTOS.businessMeeting,
+  PHOTOS.businessReview,
+  PHOTOS.businessPlanning,
+  PHOTOS.businessTeam,
+  PHOTOS.businessSigning,
+];
 
 export default async function CareBusinessesPage() {
   const [arms, services, process, faqs, stats] = await Promise.all([
@@ -54,20 +70,30 @@ export default async function CareBusinessesPage() {
                 </Link>
               </div>
             </div>
-            <ImagePlaceholder
-              lane="b2b"
-              ratio="4/3"
-              label="Care business owners reviewing documents in an office"
+            <Photo
+              photo={PHOTOS.businessHero}
+              ratio="4/5"
+              duotone="none"
+              priority
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="shadow-card"
             />
           </div>
         </Container>
       </section>
 
-      <section className="border-y border-navy-100 bg-paper-100 py-8">
-        <Container>
-          <StatBand stats={stats} />
-        </Container>
-      </section>
+      <Section tint="paper" className="py-12 md:py-14">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s, i) => (
+            <StatCard
+              key={s.label}
+              value={s.value}
+              label={s.label}
+              icon={WHY_ICONS[i % WHY_ICONS.length]}
+            />
+          ))}
+        </div>
+      </Section>
 
       <Section id="arms">
         <SectionIntro
@@ -76,13 +102,12 @@ export default async function CareBusinessesPage() {
           subtitle="Registration, growth and staffing. Take one, or take all three as a bundle."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {arms.map((arm) => (
-            <ServiceCard
+          {arms.map((arm, i) => (
+            <IconCard
               key={arm.slug}
-              eyebrow={`Arm ${arm.number}`}
+              icon={WHY_ICONS[i % WHY_ICONS.length]}
               title={arm.name}
-              summary={arm.summary}
-              href="#services"
+              body={arm.summary}
               lane="b2b"
             />
           ))}
@@ -95,13 +120,14 @@ export default async function CareBusinessesPage() {
           title="What that looks like in practice"
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <ServiceCard
+          {services.map((s, i) => (
+            <ImageCard
               key={s.slug}
-              title={s.title}
-              summary={s.summary}
-              href="/contact"
               lane="b2b"
+              photo={B2B_PHOTOS[i % B2B_PHOTOS.length]}
+              title={s.title}
+              body={s.summary}
+              href="/contact"
             />
           ))}
         </div>
@@ -131,26 +157,27 @@ export default async function CareBusinessesPage() {
               title: "We say no",
               body: "If your application is not ready, we will tell you before you submit rather than after you are refused.",
             },
-          ].map((item) => (
-            <div
+          ].map((item, i) => (
+            <IconCard
               key={item.title}
-              className="flex flex-col gap-3 rounded-lg bg-paper-100 p-6 shadow-card"
-            >
-              <h3 className="text-h4">{item.title}</h3>
-              <p className="text-ink-500">{item.body}</p>
-            </div>
+              icon={WHY_ICONS[i % WHY_ICONS.length]}
+              title={item.title}
+              body={item.body}
+              lane="b2b"
+            />
           ))}
         </div>
       </Section>
 
-      <Section tint="paper">
+      <Section tint="deep">
         <SectionIntro
+          invert
           eyebrow="The route"
           title="Foundation to growth"
           subtitle="Where you join depends on where you are. Most providers come to us at step two."
         />
         <div className="mt-12">
-          <ProcessTimeline steps={process} lane="b2b" />
+          <ProcessTimeline steps={process} lane="b2b" invert />
         </div>
       </Section>
 

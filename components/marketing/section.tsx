@@ -14,6 +14,7 @@ export function SectionIntro({
   align = "center",
   className,
   as: Heading = "h2",
+  invert = false,
 }: {
   eyebrow?: string;
   title: string;
@@ -22,6 +23,7 @@ export function SectionIntro({
   align?: "center" | "start";
   className?: string;
   as?: "h2" | "h3";
+  invert?: boolean;
 }) {
   return (
     <div
@@ -31,14 +33,28 @@ export function SectionIntro({
         className,
       )}
     >
-      {eyebrow ? <Eyebrow lane={lane}>{eyebrow}</Eyebrow> : null}
-      <Heading className={Heading === "h2" ? "text-h2" : "text-h3"}>
+      {eyebrow ? (
+        invert ? (
+          <span className="inline-flex items-center rounded-pill bg-navy-700 px-3 py-1 text-overline text-white uppercase">
+            {eyebrow}
+          </span>
+        ) : (
+          <Eyebrow lane={lane}>{eyebrow}</Eyebrow>
+        )
+      ) : null}
+      <Heading
+        className={cn(
+          Heading === "h2" ? "text-h2" : "text-h3",
+          invert && "text-white",
+        )}
+      >
         {title}
       </Heading>
       {subtitle ? (
         <p
           className={cn(
-            "measure text-body-lg text-ink-500",
+            "measure text-body-lg",
+            invert ? "text-navy-100" : "text-ink-500",
             align === "center" && "mx-auto",
           )}
         >
@@ -58,7 +74,7 @@ export function Section({
   children,
 }: {
   id?: string;
-  tint?: "none" | "paper" | "navy" | "care";
+  tint?: "none" | "paper" | "navy" | "care" | "deep";
   className?: string;
   children: React.ReactNode;
 }) {
@@ -67,11 +83,15 @@ export function Section({
     paper: "bg-paper-0",
     navy: "bg-navy-50",
     care: "bg-care-50",
+    /* Full-strength navy band. data-surface flips the focus ring to white
+       so keyboard focus stays visible against it (§5). */
+    deep: "bg-navy-900",
   } as const;
 
   return (
     <section
       id={id}
+      data-surface={tint === "deep" ? "navy" : undefined}
       className={cn("scroll-mt-24 py-16 md:py-24", tints[tint], className)}
     >
       <Container>{children}</Container>

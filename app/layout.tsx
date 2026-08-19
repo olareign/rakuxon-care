@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
+import { Inter, Lora, Plus_Jakarta_Sans } from "next/font/google";
 import { CookieConsent } from "@/components/marketing/cookie-consent";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { StickyCta } from "@/components/marketing/sticky-cta";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -15,10 +21,10 @@ const jakarta = Plus_Jakarta_Sans({
 /* docs/design-system.md §2: serif is scoped to testimonial pull-quotes
    only — never applied to UI. Exposed as `font-serif`, applied nowhere
    globally. */
-const sourceSerif = Source_Serif_4({
+const lora = Lora({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-source-serif",
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -38,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en-GB"
       data-scroll-behavior="smooth"
-      className={`${jakarta.variable} ${sourceSerif.variable}`}
+      className={`${inter.variable} ${jakarta.variable} ${lora.variable}`}
     >
       <body>
         <a
