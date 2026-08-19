@@ -39,9 +39,12 @@ const COLUMNS = [
   {
     heading: "Rakuxon Care",
     links: [
-      { label: "Home care services", href: "/find-care#services" },
-      { label: "Personal care", href: "/find-care#services" },
-      { label: "Domiciliary care", href: "/find-care#services" },
+      { label: "Home care services", href: "/services/home-care" },
+      { label: "Personal care", href: "/services/home-care#personal-care" },
+      {
+        label: "Domiciliary care",
+        href: "/services/home-care#domiciliary-care",
+      },
       { label: "For councils and ICBs", href: "/find-care#councils" },
       { label: "How it works", href: "/find-care#how-it-works" },
     ],
@@ -49,14 +52,17 @@ const COLUMNS = [
   {
     heading: "Rakuxon Care Agency",
     links: [
-      { label: "CQC registration", href: "/care-businesses#services" },
+      { label: "CQC registration", href: "/services/cqc-registration" },
       {
         label: "Tender and framework writing",
-        href: "/care-businesses#services",
+        href: "/services/tender-writing",
       },
-      { label: "Policies and procedures", href: "/care-businesses#services" },
-      { label: "Digital and branding", href: "/care-businesses#services" },
-      { label: "Consulting", href: "/care-businesses#services" },
+      {
+        label: "Policies and procedures",
+        href: "/services/policies-procedures",
+      },
+      { label: "Digital and branding", href: "/services/digital-branding" },
+      { label: "Consulting", href: "/services/consulting" },
       { label: "Rakuxon Staffing", href: "/staffing" },
       { label: "Care Business Launch Kit", href: "/launch-kit" },
     ],
@@ -64,8 +70,10 @@ const COLUMNS = [
   {
     heading: "Company",
     links: [
+      { label: "Home", href: "/" },
       { label: "About us", href: "/about" },
-      { label: "Our two-arm model", href: "/about#model" },
+      { label: "Our model", href: "/about#model" },
+      { label: "All services", href: "/services" },
       { label: "FAQ", href: "/faq" },
       { label: "Contact", href: "/contact" },
     ],

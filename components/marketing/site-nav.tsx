@@ -24,6 +24,7 @@ export interface NavArm {
    Guides, FAQ) and Careers; those routes arrive in Phases 4–5, so only FAQ
    is surfaced for now rather than shipping links that 404. Logged in
    TODO.md. */
+/** Rendered after the Services trigger. Home is rendered before it. */
 const LINKS = [
   { label: "Find care", href: "/find-care" },
   { label: "Launch Kit", href: "/launch-kit" },
@@ -64,6 +65,16 @@ export function SiteNav({ arms }: { arms: { one: NavArm; two: NavArm } }) {
             delayDuration={0}
           >
             <NavigationMenu.List className="flex items-center gap-0.5">
+              <NavigationMenu.Item>
+                <NavigationMenu.Link asChild>
+                  <Link
+                    href="/"
+                    className="inline-flex min-h-11 items-center rounded-pill px-3 text-body whitespace-nowrap text-ink-700 transition-colors hover:bg-navy-50 hover:text-navy-800"
+                  >
+                    Home
+                  </Link>
+                </NavigationMenu.Link>
+              </NavigationMenu.Item>
               <NavigationMenu.Item>
                 <NavigationMenu.Trigger className="group inline-flex min-h-11 items-center gap-1.5 rounded-pill px-3 text-body text-ink-700 transition-colors hover:bg-navy-50 hover:text-navy-800 data-[state=open]:bg-navy-50 data-[state=open]:text-navy-800">
                   Services
@@ -223,6 +234,8 @@ export function SiteNav({ arms }: { arms: { one: NavArm; two: NavArm } }) {
 
                 <ul className="mt-6 flex flex-col border-t border-ink-300/50 pt-2">
                   {[
+                    { label: "Home", href: "/" },
+                    { label: "All services", href: "/services" },
                     { label: "Launch Kit", href: "/launch-kit" },
                     { label: "Rakuxon Staffing", href: "/staffing" },
                     { label: "About", href: "/about" },

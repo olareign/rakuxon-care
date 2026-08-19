@@ -20,11 +20,11 @@ export function TwoArms({ arms }: { arms: Arm[] }) {
       <Container>
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
           <span className="inline-flex items-center rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
-            Two arms, one authority
+            One brand, two sides
           </span>
           <h2 className="text-h2">Which side are you on?</h2>
           <p className="measure text-ink-500">
-            One arm delivers care in people&rsquo;s homes. The other helps care
+            One side delivers care in people&rsquo;s homes. The other helps care
             businesses register, win work and staff up. The first is what makes
             the second credible.
           </p>
@@ -74,7 +74,7 @@ export function TwoArms({ arms }: { arms: Arm[] }) {
                         isCare ? "text-care-700" : "text-navy-800",
                       )}
                     >
-                      Arm {arm.number} — {arm.name}
+                      {arm.name}
                     </span>
                     <span className="font-display block text-h4 text-ink-900">
                       {arm.laneLabel}

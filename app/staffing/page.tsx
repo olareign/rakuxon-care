@@ -55,7 +55,7 @@ export default async function StaffingPage() {
             <div className="flex flex-col items-start gap-5">
               <span className="inline-flex items-center gap-2 rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
                 <Users className="size-3.5" aria-hidden="true" />
-                Arm 2 — service line
+                Rakuxon Care Agency
               </span>
               <h1 className="text-h1">Rakuxon Staffing</h1>
               <p className="measure text-body-lg text-ink-700">

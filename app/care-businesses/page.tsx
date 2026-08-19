@@ -60,7 +60,7 @@ export default async function CareBusinessesPage() {
             <div className="flex flex-col items-start gap-5">
               <span className="inline-flex items-center gap-2 rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
                 <Building2 className="size-3.5" aria-hidden="true" />
-                Arm 2 — Rakuxon Care Agency
+                Rakuxon Care Agency
               </span>
               <h1 className="text-h1">
                 Register, win work, and staff the rota
@@ -124,7 +124,7 @@ export default async function CareBusinessesPage() {
       <Section id="services">
         <SectionIntro
           eyebrow="Service lines"
-          title="What Arm 2 does"
+          title="What we do for providers"
           subtitle="Take one line, take several, or take the Launch Kit as a fixed-scope bundle."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

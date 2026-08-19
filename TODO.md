@@ -140,6 +140,24 @@ copy are Rakuxon's; everything else follows the reference. Consequences:
   1.19:1. Because they carry the step order they are text, not decoration,
   so they use `navy-600/70` (3.29:1, passing AA for large text).
 
+## Service pages (this pass)
+
+- **`/services/{slug}` body copy is written, not supplied.** `overview` and
+  `whoFor` for all six service lines in `lib/cms/data.ts` are on-brand filler.
+  PRD §5.6 defines the template; the words are mine and need sign-off.
+- **Service pages are static.** They read from `lib/cms/data.ts`, not a CMS.
+  Phase 4 moves them behind the `Service` collection; the shape already
+  matches so it should be a data-source swap.
+- **`/services/staffing` 301s to `/staffing`.** The PRD lists staffing both as
+  a service-line slug (§4.2) and as its own page (§5.5). `/staffing` is
+  canonical; `serviceHref()` in `lib/services.ts` is the single place that
+  decides a service's URL.
+- **Sub-service anchors.** "Personal care" and "Domiciliary care" are anchors
+  on `/services/home-care`, not pages — PRD §4.2 lists neither as a slug.
+  Promote them if they need their own pages.
+- **FAQ imagery is reused.** `/faq` borrows `coupleAtHome` and
+  `businessMeeting` from the shared library rather than dedicated photography.
+
 ## Decisions taken (change if you disagree)
 
 - **Nav collapses to the drawer below `lg` (1024px), not below `md`
@@ -161,8 +179,6 @@ copy are Rakuxon's; everything else follows the reference. Consequences:
 
 These are unchanged from the Phase 0–2 build and still block launch.
 
-- **PRD §3 — the "four arms" are an assumption.** Numbering is inferred in
-  `lib/cms/data.ts`; see the comment block there.
 - **PRD §5** — per-page content outlines. All body copy is on-brand filler.
 - **PRD §7.1** — enquiry form fields. `/contact` is a shell until Phase 3.
 - **PRD §9 Q2** — CQC registration status. Pinned to `in-progress`.

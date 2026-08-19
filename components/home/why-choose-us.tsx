@@ -57,8 +57,8 @@ export function WhyChooseUs() {
             </h2>
             <p className="measure text-ink-500">
               Care consultancies sell credibility they do not hold. We hold it,
-              because Arm 1 delivers regulated care every day and Arm 2 sells
-              only what Arm 1 actually uses.
+              because we deliver regulated care every day, and we sell only what
+              that service actually uses.
             </p>
           </div>
         </div>

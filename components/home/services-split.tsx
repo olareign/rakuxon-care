@@ -30,12 +30,12 @@ export function ServicesSplit() {
                 Care delivered, and care businesses built
               </h2>
               <p className="measure text-ink-500">
-                Arm 1 provides personal and domiciliary care at home. Arm 2
-                gives other providers the registration, tenders, systems and
-                staffing to do the same.
+                Rakuxon Care provides personal and domiciliary care at home.
+                Rakuxon Care Agency gives other providers the registration,
+                tenders, systems and staffing to do the same.
               </p>
               <Link
-                href="/contact"
+                href="/services"
                 className={buttonClasses({ tone: "care", className: "mt-1" })}
               >
                 See all services

@@ -14,7 +14,7 @@ import { getArms, getMarketStats, getSiteSettings, getTeam } from "@/lib/cms";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Rakuxon Care delivers CQC-registered home care and helps care businesses register, win contracts and recruit. One brand, two audiences, four arms.",
+    "Rakuxon Care delivers CQC-registered home care and helps care businesses register, win contracts and recruit. One brand, two sides.",
 };
 
 const ARM_ICONS = [HeartHandshake, Building2];
@@ -31,12 +31,13 @@ export default async function AboutPage() {
     <>
       <section className="py-16 md:py-24">
         <Container>
-          <div className="flex max-w-3xl flex-col gap-6">
+          {/* Centred, matching the FAQ page's intro treatment. */}
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
             <span className="inline-flex w-fit items-center rounded-pill bg-navy-100 px-3 py-1 text-overline text-navy-800 uppercase">
               About
             </span>
             <h1 className="text-h1">Two jobs, done by one team</h1>
-            <p className="text-body-lg text-ink-500">
+            <p className="measure text-body-lg text-ink-500">
               Placeholder story pending PRD §1. The shape is set: Rakuxon Care
               both delivers care and builds the businesses that deliver it, and
               each side makes the other better informed.
@@ -55,12 +56,12 @@ export default async function AboutPage() {
             className="shadow-card"
           />
           <div className="flex flex-col gap-5">
-            <h2 className="text-h2">Why both arms</h2>
+            <h2 className="text-h2">Why both sides</h2>
             <p className="text-ink-700">
               Advising care businesses without running one produces advice that
               reads well and fails inspection. Every other consultancy in this
               market sells credibility it does not hold. Rakuxon holds it,
-              because Arm 1 is a regulated service in its own right.
+              because the care service is regulated in its own right.
             </p>
             <p className="text-ink-700">
               Placeholder narrative. Final copy, founding date and the real
@@ -74,15 +75,15 @@ export default async function AboutPage() {
       <Section id="model">
         <SectionIntro
           eyebrow="Our model"
-          title="Two arms, one authority"
-          subtitle="One arm delivers regulated care. The other helps care businesses do the same. The first is what makes the second credible."
+          title="One brand, two sides"
+          subtitle="One side delivers regulated care. The other helps care businesses do the same. The first is what makes the second credible."
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {arms.map((arm, i) => (
             <Link key={arm.slug} href={arm.href} className="group">
               <IconCard
                 icon={ARM_ICONS[i % ARM_ICONS.length]}
-                title={`Arm ${arm.number} — ${arm.name}`}
+                title={arm.name}
                 body={arm.summary}
                 lane={arm.lane}
                 className="h-full transition-colors group-hover:bg-paper-0"
