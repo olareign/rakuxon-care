@@ -105,6 +105,36 @@ export const PHOTOS = {
     alt: "Two colleagues planning a project across a shared desk",
   },
 
+  // ---- Reference-structure slots ----
+  aboutWide: {
+    src: "/images/about-wide.jpg",
+    width: 1600,
+    height: 1067,
+    alt: "Carers and older people sharing a meal together around a table",
+  },
+  careTeamGroup: {
+    src: "/images/care-team-group.jpg",
+    width: 1400,
+    height: 935,
+    alt: "Three members of a care team standing together in a client's home",
+  },
+  videoReview: {
+    src: "/images/video-review.jpg",
+    width: 1200,
+    height: 800,
+    alt: "A man smiling with headphones around his neck",
+  },
+
+  // ---- Avatars (stacks and testimonial bylines) ----
+  avatar1: { src: "/images/avatar-1.jpg", width: 320, height: 480, alt: "" },
+  avatar2: { src: "/images/avatar-2.jpg", width: 320, height: 180, alt: "" },
+  avatar3: { src: "/images/avatar-3.jpg", width: 320, height: 480, alt: "" },
+  avatar4: { src: "/images/avatar-4.jpg", width: 320, height: 480, alt: "" },
+  avatar5: { src: "/images/avatar-5.jpg", width: 320, height: 480, alt: "" },
+  avatar6: { src: "/images/avatar-6.jpg", width: 320, height: 480, alt: "" },
+  avatar7: { src: "/images/avatar-7.jpg", width: 320, height: 213, alt: "" },
+  avatar8: { src: "/images/avatar-8.jpg", width: 320, height: 213, alt: "" },
+
   // ---- Team ----
   team1: {
     src: "/images/team-1.jpg",

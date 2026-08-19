@@ -3,34 +3,31 @@
 import * as React from "react";
 import Link from "next/link";
 import * as Dialog from "@radix-ui/react-dialog";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { buttonClasses } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/marketing/logo";
 import { useScrolled } from "@/lib/hooks/use-scrolled";
 import { cn } from "@/lib/cn";
-import type { Service } from "@/lib/cms";
 
 export interface NavLane {
   label: string;
   href: string;
   blurb: string;
-  services: Pick<Service, "slug" | "title" | "summary">[];
 }
 
-const PRIMARY_LINKS = [
+/* Reference section 1: logo left, links centred, one outlined pill CTA on
+   the right. The two-lane Services mega-menu from the earlier build is
+   replaced by a plain "Services" link to match the reference; the lane
+   split is preserved at the top of the mobile drawer. Noted in TODO.md. */
+const LINKS = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
   { label: "FAQ", href: "/faq" },
 ];
 
-/**
- * Full horizontal nav from `lg` (1024px) up; hamburger drawer below.
- *
- * The drawer threshold is lg rather than md because at 768px a logo, three
- * link targets and two CTAs can only fit by cramming — which is the thing
- * the layout brief rules out. Noted in TODO.md.
- */
 export function SiteNav({ lanes }: { lanes: { b2c: NavLane; b2b: NavLane } }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const scrolled = useScrolled(8);
@@ -58,101 +55,37 @@ export function SiteNav({ lanes }: { lanes: { b2c: NavLane; b2b: NavLane } }) {
             <Logo priority className="h-6 md:h-7" />
           </Link>
 
-          {/* ---------------- Desktop (lg and up) ---------------- */}
-          <NavigationMenu.Root
-            className="relative hidden lg:flex lg:flex-1 lg:justify-center"
-            delayDuration={0}
+          {/* Centred links (lg and up). */}
+          <nav
+            aria-label="Main"
+            className="hidden lg:flex lg:flex-1 lg:justify-center"
           >
-            <NavigationMenu.List className="flex items-center gap-1">
-              <NavigationMenu.Item>
-                <NavigationMenu.Trigger className="group inline-flex min-h-11 items-center gap-1.5 rounded-pill px-4 text-body text-ink-700 transition-colors hover:bg-navy-50 hover:text-navy-800 data-[state=open]:bg-navy-50 data-[state=open]:text-navy-800">
-                  Services
-                  <ChevronDown
-                    className="size-4 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                    aria-hidden="true"
-                  />
-                </NavigationMenu.Trigger>
-
-                {/* Width is clamped to the viewport so the panel can never
-                    be wider than the screen at 1024px. */}
-                <NavigationMenu.Content className="absolute top-full left-1/2 z-50 w-[min(56rem,calc(100vw-3rem))] -translate-x-1/2">
-                  <div className="mt-3 grid gap-6 rounded-lg border border-navy-100 bg-paper-100 p-6 shadow-card md:grid-cols-2">
-                    {[lanes.b2c, lanes.b2b].map((lane, idx) => (
-                      <div
-                        key={lane.href}
-                        className="flex min-w-0 flex-col gap-3"
-                      >
-                        <NavigationMenu.Link asChild>
-                          <Link
-                            href={lane.href}
-                            className={cn(
-                              "rounded-md p-4 transition-colors",
-                              idx === 0
-                                ? "bg-care-50 hover:bg-care-100"
-                                : "bg-navy-50 hover:bg-navy-100",
-                            )}
-                          >
-                            <span className="font-display text-h4 text-ink-900">
-                              {lane.label}
-                            </span>
-                            <span className="mt-1 block text-small text-ink-500">
-                              {lane.blurb}
-                            </span>
-                          </Link>
-                        </NavigationMenu.Link>
-                        <ul className="flex min-w-0 flex-col">
-                          {lane.services.map((s) => (
-                            <li key={s.slug} className="min-w-0">
-                              <NavigationMenu.Link asChild>
-                                <Link
-                                  href={`${lane.href}#services`}
-                                  className="flex min-h-11 min-w-0 flex-col justify-center rounded-md px-3 py-2 transition-colors hover:bg-paper-0"
-                                >
-                                  <span className="truncate text-ink-900">
-                                    {s.title}
-                                  </span>
-                                  <span className="truncate text-small text-ink-500">
-                                    {s.summary}
-                                  </span>
-                                </Link>
-                              </NavigationMenu.Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </NavigationMenu.Content>
-              </NavigationMenu.Item>
-
-              {PRIMARY_LINKS.map((l) => (
-                <NavigationMenu.Item key={l.href}>
-                  <NavigationMenu.Link asChild>
-                    <Link
-                      href={l.href}
-                      className="inline-flex min-h-11 items-center rounded-pill px-4 text-body text-ink-700 transition-colors hover:bg-navy-50 hover:text-navy-800"
-                    >
-                      {l.label}
-                    </Link>
-                  </NavigationMenu.Link>
-                </NavigationMenu.Item>
+            <ul className="flex items-center gap-1">
+              {LINKS.map((l) => (
+                <li key={l.label}>
+                  <Link
+                    href={l.href}
+                    className="inline-flex min-h-11 items-center rounded-pill px-4 text-body text-ink-700 transition-colors hover:bg-navy-50 hover:text-navy-800"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
               ))}
-            </NavigationMenu.List>
-          </NavigationMenu.Root>
+            </ul>
+          </nav>
 
-          <div className="hidden shrink-0 items-center gap-2 lg:flex">
-            <Link
-              href="/login"
-              className="inline-flex min-h-11 items-center rounded-pill px-4 text-body text-navy-800 transition-colors hover:bg-navy-50"
-            >
-              Log in
-            </Link>
-            <Link href="/contact" className={buttonClasses({ size: "sm" })}>
-              Get in touch
-            </Link>
-          </div>
+          {/* Outlined CTA, as in the reference. */}
+          <Link
+            href="/contact"
+            className={cn(
+              buttonClasses({ variant: "secondary", size: "sm" }),
+              "hidden shrink-0 lg:inline-flex",
+            )}
+          >
+            Contact
+          </Link>
 
-          {/* ---------------- Below lg ---------------- */}
+          {/* Hamburger drawer below lg. */}
           <Dialog.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
             <Dialog.Trigger
               aria-label="Open menu"
@@ -183,7 +116,7 @@ export function SiteNav({ lanes }: { lanes: { b2c: NavLane; b2b: NavLane } }) {
                   Rakuxon Care.
                 </Dialog.Description>
 
-                {/* Lane split first — §4.2. */}
+                {/* Lane split first. */}
                 <div className="mt-6 flex flex-col gap-3">
                   {[lanes.b2c, lanes.b2b].map((lane, idx) => (
                     <Link
@@ -208,19 +141,17 @@ export function SiteNav({ lanes }: { lanes: { b2c: NavLane; b2b: NavLane } }) {
                 </div>
 
                 <ul className="mt-6 flex flex-col border-t border-ink-300/50 pt-2">
-                  {[...PRIMARY_LINKS, { label: "Log in", href: "/login" }].map(
-                    (l) => (
-                      <li key={l.href}>
-                        <Link
-                          href={l.href}
-                          onClick={closeDrawer}
-                          className="flex min-h-12 items-center text-body-lg text-ink-700"
-                        >
-                          {l.label}
-                        </Link>
-                      </li>
-                    ),
-                  )}
+                  {LINKS.map((l) => (
+                    <li key={l.label}>
+                      <Link
+                        href={l.href}
+                        onClick={closeDrawer}
+                        className="flex min-h-12 items-center text-body-lg text-ink-700"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
 
                 <Link
@@ -231,7 +162,7 @@ export function SiteNav({ lanes }: { lanes: { b2c: NavLane; b2b: NavLane } }) {
                     className: "mt-auto",
                   })}
                 >
-                  Get in touch
+                  Contact
                 </Link>
               </Dialog.Content>
             </Dialog.Portal>

@@ -289,6 +289,30 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Registered manager",
     lane: "b2b",
   },
+  {
+    id: "t4",
+    quote:
+      "Booking took one phone call. The assessment happened at Dad's kitchen table two days later, and nothing was rushed.",
+    name: "Placeholder name",
+    role: "Teacher",
+    lane: "b2c",
+  },
+  {
+    id: "t5",
+    quote:
+      "The care notes go straight to my phone. I live four hours away and I finally stopped feeling guilty about it.",
+    name: "Placeholder name",
+    role: "Engineer",
+    lane: "b2c",
+  },
+  {
+    id: "t6",
+    quote:
+      "They told us we were not ready to submit, six weeks before we would have found out the hard way.",
+    name: "Placeholder name",
+    role: "Business consultant",
+    lane: "b2b",
+  },
 ];
 
 export const FAQS: Faq[] = [
