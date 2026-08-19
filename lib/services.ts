@@ -2,7 +2,9 @@ import {
   BadgeCheck,
   FileCheck2,
   FileSignature,
+  HandHeart,
   HeartHandshake,
+  House,
   Lightbulb,
   Megaphone,
   Users,
@@ -19,6 +21,9 @@ export const SERVICE_ICONS: Record<string, LucideIcon> = {
   "digital-branding": Megaphone,
   consulting: Lightbulb,
   staffing: Users,
+  /* Sub-sections of home-care, surfaced as their own cards on /services. */
+  "personal-care": HandHeart,
+  "domiciliary-care": House,
 };
 
 /**

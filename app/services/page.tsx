@@ -19,18 +19,40 @@ export default async function ServicesIndexPage() {
   const [arms, services] = await Promise.all([getArms(), getServices()]);
   const [armOne, armTwo] = arms;
 
+  /* A service's sub-sections earn their own card here, so the Rakuxon Care
+     row matches the Services mega-menu and fills its grid rather than
+     leaving a single card against six. Derived from the data, not hardcoded,
+     so adding a section to a service surfaces it automatically. */
+  const toCards = (list: typeof services) =>
+    list.flatMap((s) => [
+      {
+        key: s.slug,
+        title: s.title,
+        body: s.summary,
+        href: serviceHref(s),
+        icon: SERVICE_ICONS[s.slug],
+      },
+      ...(s.sections ?? []).map((sec) => ({
+        key: `${s.slug}#${sec.id}`,
+        title: sec.title,
+        body: sec.body,
+        href: `${serviceHref(s)}#${sec.id}`,
+        icon: SERVICE_ICONS[sec.id],
+      })),
+    ]);
+
   const groups = [
     {
       arm: armOne,
       icon: HeartHandshake,
       lane: "b2c" as const,
-      services: services.filter((s) => s.arm === "care"),
+      cards: toCards(services.filter((s) => s.arm === "care")),
     },
     {
       arm: armTwo,
       icon: Building2,
       lane: "b2b" as const,
-      services: services.filter((s) => s.arm === "agency"),
+      cards: toCards(services.filter((s) => s.arm === "agency")),
     },
   ];
 
@@ -70,12 +92,12 @@ export default async function ServicesIndexPage() {
             subtitle={group.arm.summary}
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {group.services.map((s) => (
-              <Link key={s.slug} href={serviceHref(s)} className="group">
+            {group.cards.map((card) => (
+              <Link key={card.key} href={card.href} className="group">
                 <IconCard
-                  icon={SERVICE_ICONS[s.slug] ?? group.icon}
-                  title={s.title}
-                  body={s.summary}
+                  icon={card.icon ?? group.icon}
+                  title={card.title}
+                  body={card.body}
                   lane={group.lane}
                   className="h-full transition-colors group-hover:bg-paper-0"
                 />
