@@ -74,7 +74,7 @@ for other providers). Changes made, and what is still owed:
   (£77.8bn, 15,232 locations, 1.71m jobs, ~10% vacancy rate, 683,000
   long-term clients, 2.02m council requests, +11% growth). **Citations are
   not attached.** Each band carries a source line naming the internal
-  strategy deck; before launch these need proper public citations (Skills
+  internal planning material; before launch these need public citations (Skills
   for Care / CQC / ADASS as applicable) or they should not be published.
 - **Invented company metrics were removed.** The hero previously claimed
   "more than 4,000 carers matched" and "5k+ families supported". Arm 1 is

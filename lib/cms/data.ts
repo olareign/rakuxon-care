@@ -160,8 +160,8 @@ export const SERVICES: Service[] = [
   },
 ];
 
-/* PRD §7 — real figures from the internal planning material. Not placeholders.
-   Citations still need adding before launch; see TODO.md. */
+/* PRD §7 — real market figures, not placeholders. Public source citations
+   still need adding before launch; see TODO.md. */
 export const MARKET_STATS: Stat[] = [
   {
     value: "£77.8bn",
