@@ -1,1 +1,191 @@
 @import "tailwindcss";
+
+/* ============================================================
+   Rakuxon Care — design tokens
+   Source of truth: docs/design-system.md §1 (colour), §2 (type),
+   §3 (spacing, layout, shape). Change the doc, then change this.
+
+   The stock Tailwind colour, radius and shadow scales are cleared
+   below so the design system's discipline rules are enforced by the
+   compiler rather than by review: `bg-purple-500`, `shadow-2xl` and
+   off-system radii simply do not exist. Delete the three `initial`
+   lines to restore them.
+
+   Spacing is deliberately NOT cleared — Tailwind's default 4px-base
+   dynamic scale already contains every step the design system lists
+   (4/8/12/16/24/32/48/64/96/128 = 1/2/3/4/6/8/12/16/24/32).
+   ============================================================ */
+
+@theme {
+  /* ── Clear stock scales ─────────────────────────────────── */
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+
+  /* ── Keyword colours ────────────────────────────────────── */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── Navy · primary (authority, B2B lean) ───────────────── */
+  --color-navy-900: #10203d;
+  --color-navy-800: #1f3864; /* primary brand navy */
+  --color-navy-700: #2e4a7d;
+  --color-navy-600: #3a5b96;
+  --color-navy-100: #dde6f2;
+  --color-navy-50: #eef3fa;
+
+  /* ── Care teal/green · secondary (warmth, B2C lean) ─────── */
+  --color-care-700: #0f6e56;
+  --color-care-600: #158368; /* primary care accent */
+  --color-care-500: #1d9e75;
+  --color-care-100: #dcf2ea;
+  --color-care-50: #eef8f4;
+
+  /* ── Warm accent · optional, max one per view ───────────── */
+  --color-accent-600: #c2410c;
+  --color-accent-500: #ea580c;
+
+  /* ── Ink · text neutrals ────────────────────────────────── */
+  --color-ink-900: #14181f;
+  --color-ink-700: #33404f;
+  --color-ink-500: #5c6b7a;
+  --color-ink-300: #a7b2bf;
+
+  /* ── Paper · surface neutrals ───────────────────────────── */
+  --color-paper-100: #ffffff; /* cards / surfaces */
+  --color-paper-50: #f7f9fb; /* page background */
+  --color-paper-0: #eef2f6; /* section separation */
+
+  /* ── Semantic ───────────────────────────────────────────── */
+  --color-success: #158368;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+  --color-info: #1f3864;
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius-sm: 8px; /* inputs, chips */
+  --radius-md: 12px; /* cards */
+  --radius-lg: 20px; /* feature panels, hero cards, images */
+  --radius-pill: 999px; /* buttons */
+
+  /* ── Elevation · the only shadow in the system ──────────── */
+  --shadow-card:
+    0 1px 3px rgb(16 32 61 / 0.08), 0 8px 24px rgb(16 32 61 / 0.06);
+
+  /* ── Type scale ─────────────────────────────────────────────
+     Desktop sizes per §2; clamp() delivers the ~15–20% mobile
+     step-down the doc asks for without breakpoint littering.
+     ───────────────────────────────────────────────────────── */
+  --text-h1: clamp(2.5rem, 1.6rem + 2.8vw, 3.5rem); /* 40 → 56 */
+  --text-h1--line-height: 1.1;
+  --text-h1--font-weight: 700;
+  --text-h1--letter-spacing: -0.02em;
+
+  --text-h2: clamp(1.875rem, 1.5rem + 1.2vw, 2.25rem); /* 30 → 36 */
+  --text-h2--line-height: 1.2;
+  --text-h2--font-weight: 700;
+  --text-h2--letter-spacing: -0.015em;
+
+  --text-h3: clamp(1.4375rem, 1.2rem + 0.8vw, 1.75rem); /* 23 → 28 */
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 600;
+  --text-h3--letter-spacing: -0.01em;
+
+  --text-h4: clamp(1.1875rem, 1.05rem + 0.4vw, 1.375rem); /* 19 → 22 */
+  --text-h4--line-height: 1.35;
+  --text-h4--font-weight: 600;
+
+  --text-body-lg: 1.125rem; /* 18 */
+  --text-body-lg--line-height: 1.7;
+  --text-body-lg--font-weight: 400;
+
+  --text-body: 1rem; /* 16 */
+  --text-body--line-height: 1.7;
+  --text-body--font-weight: 400;
+
+  --text-small: 0.875rem; /* 14 */
+  --text-small--line-height: 1.5;
+  --text-small--font-weight: 500;
+
+  --text-overline: 0.8125rem; /* 13 */
+  --text-overline--line-height: 1.4;
+  --text-overline--font-weight: 600;
+  --text-overline--letter-spacing: 0.04em;
+}
+
+/* Font families resolve to next/font variables set in app/layout.tsx,
+   so they must live in an `inline` block. */
+@theme inline {
+  --font-sans:
+    var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  :root {
+    /* Recoloured per-surface so focus stays visible on navy panels
+       (footer, B2B cards). See [data-surface] below. §5. */
+    --focus-ring: var(--color-navy-800);
+
+    /* Max body measure, §2: "~70 characters". */
+    --measure: 70ch;
+  }
+
+  [data-surface="navy"] {
+    --focus-ring: var(--color-white);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper-50);
+    color: var(--color-ink-700);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* §5: visible keyboard focus everywhere, 2px offset. */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Headings default to ink-900; §2 mandates sentence case in copy. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-ink-900);
+    text-wrap: balance;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Constrain long-form copy to the §2 measure. */
+  .measure {
+    max-width: var(--measure);
+  }
+}
